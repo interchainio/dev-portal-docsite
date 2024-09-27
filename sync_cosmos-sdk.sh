@@ -27,22 +27,21 @@ main() {
 unsafe_cleanup_cosmossdk() {
     # useful for testing this script locally and resetting state
     rm -rf ./$DOCS_NAME ./${DOCS_NAME}_versioned_sidebars ./${DOCS_NAME}_versioned_docs ./static/img/$DOCS_NAME/ ./src/components/$DOCS_NAME/
-    rm -rf ./$DOCS_DIR ./$MAIN_SDK_DIR
+    rm -rf ./$DOCS_DIR ./$MAIN_SDK_DIR ./${DOCS_NAME}_versions.json
 }
 
 download_docs_source() {
     # Downloads documentation source for the repo
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth=1 https://github.com/cosmos/cosmos-sdk-docs.git $DOCS_DIR_TARGET
+    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk-docs.git $DOCS_DIR_TARGET
 
     # TODO: ideally we get off of this? or put all in the main repo yea? talk w/ Julien.
-    git -C "$MAIN_SDK_DIR_TARGET" pull || git clone --depth=1 https://github.com/cosmos/cosmos-sdk.git $MAIN_SDK_DIR_TARGET
+    git -C "$MAIN_SDK_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk.git $MAIN_SDK_DIR_TARGET
 
     if [ -z "$DOCS_NAME" ]; then
         echo "DOCS_NAME is unset. Set it to the name of the docs you are syncing (i.e. cosmos-sdk)."
         panic
     fi
 
-    # create the base
     mkdir -p ./$DOCS_NAME ./${DOCS_NAME}_versioned_sidebars ./${DOCS_NAME}_versioned_docs ./static/img/$DOCS_NAME/ ./src/components/$DOCS_NAME/
 }
 
@@ -73,16 +72,17 @@ update_sidebar() {
     replace "./cosmos-sdk/sidebars.js" '"tutorials"' '"docs/tutorials"'
 }
 
-# TODO: ideally we do not have to do this, but some links are broken upstream
-# need to fix there then we can remove from here?
+# TODO: ideally we do not have to do this, but some links are broken upstream.
 HACK_fix_relative_links() {
     # cosmos-sdk nested docs, pull in as references
     BASE_DIR=./cosmos-sdk/docs/build/modules/bank/v2; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/bank/v2/README.md $BASE_DIR
     BASE_DIR=./cosmos-sdk/docs/build/modules/tx; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/tx/README.md $BASE_DIR
     BASE_DIR=./cosmos-sdk/docs/build/modules/validate; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/validate/README.md $BASE_DIR
 
-    # This is just cosmetic so the docs engine doesn't throw a 'Docs markdown link couldn't be resolved' error.
-    # touch ./cosmos-sdk/docs/build/migrations/CHANGELOG.md
+    # This is just cosmetic so the docs engine doesn't throw a 'Docs markdown link couldn't be resolved' error fiel filenames in backticks.
+    # e.g. `CHANGELOG.md`.
+    touch ./cosmos-sdk/docs/build/migrations/CHANGELOG.md
+    touch ./cosmos-sdk_versioned_docs/version-{0.50,0.47}/build/migrations/CHANGELOG.md
 
     # this excludes a dir because of bad relative paths used in only 1 location.
     replace "./cosmos-sdk_versioned_docs" "\./01-app-go-v2.md" "../../build/building-apps/01-app-go-v2.md" "building-apps/"
