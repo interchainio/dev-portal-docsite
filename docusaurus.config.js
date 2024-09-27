@@ -125,12 +125,12 @@ const config = {
             position: 'right',
             dropdownActiveClassDisabled: true,
           },
-          // { // TODO:
-          //   type: 'docsVersionDropdown',
-          //   docsPluginId: 'cometbft',
-          //   position: 'right',
-          //   dropdownActiveClassDisabled: true,
-          // },
+          {
+            type: 'docsVersionDropdown',
+            docsPluginId: 'cometbft',
+            position: 'right',
+            dropdownActiveClassDisabled: true,
+          },
           {
             href: 'https://github.com/interchainio',
             label: 'GitHub',
