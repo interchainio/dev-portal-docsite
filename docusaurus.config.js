@@ -55,8 +55,18 @@ const config = {
         sidebarPath: require.resolve('./cosmos-sdk/sidebars.js'),
         exclude: ["**/*.template.md"],
       },
-      // TODO: CosmWasm & cometBFT
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'cometbft',
+        path: 'cometbft',
+        routeBasePath: 'cometbft',
+        sidebarPath: require.resolve('./cometbft/sidebars.js'),
+        exclude: ["**/*.template.md"],
+      },
+    ],
+    // TODO: CosmWasm
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
@@ -96,6 +106,12 @@ const config = {
             label: 'Cosmos-SDK',
             activeBaseRegex: `/cosmos-sdk/`,
           },
+          {
+            to: '/cometbft',
+            position: 'left',
+            label: 'Comet BFT',
+            activeBaseRegex: `/cometbft/`,
+          },
           // Version drop downs are merged via the theme/NavBarItem/DocsVersionDropdownNavbarItem.js
           {
             type: 'docsVersionDropdown',
@@ -109,6 +125,12 @@ const config = {
             position: 'right',
             dropdownActiveClassDisabled: true,
           },
+          // { // TODO:
+          //   type: 'docsVersionDropdown',
+          //   docsPluginId: 'cometbft',
+          //   position: 'right',
+          //   dropdownActiveClassDisabled: true,
+          // },
           {
             href: 'https://github.com/interchainio',
             label: 'GitHub',

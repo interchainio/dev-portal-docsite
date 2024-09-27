@@ -28,4 +28,5 @@ dsource*
 
 # TODO: persist these as well
 ibc-go*
+cometbft*
 cosmos-sdk*
