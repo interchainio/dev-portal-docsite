@@ -11,7 +11,8 @@ DOCS_NAME=cometbft
 DOCS_DIR_TARGET=dsource-cometbft
 DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET
 
-CMBFT_VERSIONS=("v1.x" "v0.34.x" "v0.37.x" "v0.38.x")
+# CMBFT_VERSIONS=("v1.x" "v0.34.x" "v0.37.x" "v0.38.x")
+CMBFT_VERSIONS=("v1.x" "v0.38.x")
 
 main() {
     # pre req: we need multiple branches from the cometbft repo, but are cloning a shallow copy.
@@ -42,7 +43,7 @@ download_docs_source() {
         panic
     fi
 
-    mkdir -p ./$DOCS_NAME ./${DOCS_NAME}_versioned_sidebars ./${DOCS_NAME}_versioned_docs ./static/img/$DOCS_NAME/ ./src/components/$DOCS_NAME/
+    mkdir -p ./$DOCS_NAME ./${DOCS_NAME}_versioned_sidebars ./${DOCS_NAME}_versioned_docs # ./static/img/$DOCS_NAME/ ./src/components/$DOCS_NAME/
 }
 
 copy_over_core() {
@@ -54,7 +55,7 @@ copy_over_core() {
 
     cp -r $DOCS_DIR/spec ./cometbft/docs
     # TODO: may need to be more specific
-    replace "./${DOCS_NAME}/docs/" "../../../spec/" "../../spec/"
+    # replace "./${DOCS_NAME}/docs/" "../../../spec/" "../../spec/" # going to try that first
 
     # versioned docs
     # cp $DOCS_DIR/versions.json ./cometbft_versions.json
@@ -83,7 +84,7 @@ copy_over_core() {
         new_dir=../${DOCS_NAME}_versioned_docs/version-${version}; mkdir -p $new_dir; cp -r ./docs/* $new_dir
 
         new_dir=../${DOCS_NAME}_versioned_docs/version-${version}/spec; mkdir -p $new_dir; cp -r ./spec/* $new_dir
-        replace "../${DOCS_NAME}_versioned_docs/version-${version}" "../../../spec/" "../../spec/"
+        # replace "../${DOCS_NAME}_versioned_docs/version-${version}" "../../../spec/" "../../spec/"
 
 
 
@@ -148,38 +149,23 @@ module.exports = sidebars;
     replace "../${DOCS_NAME}_versioned_docs" "<a id=note1></a>" ""
     replace "../${DOCS_NAME}" "<a id=note1></a>" ""
 
-    # override the entire files because of some MDXContent issues
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v1.x/spec/p2p/reactor-api/README.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.38.x/spec/p2p/reactor-api/README.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.37.x/spec/p2p/reactor-api/README.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.34.x/spec/consensus/time.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.34.x/spec/p2p/implementation/peer_manager.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.34.x/spec/p2p/reactor-api/README.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.37.x/spec/consensus/time.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.37.x/spec/p2p/implementation/peer_manager.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v1.x/spec/p2p/implementation/peer_manager.md
-    echo '#Fix me' > ../cometbft/docs/consensus/time.md
-    echo '#Fix me' > ../cometbft/docs/p2p/implementation/peer_manager.md
-    echo '#Fix me' > ../cometbft/docs/p2p/reactor-api/README.md
-    echo '#Fix me' > ../cometbft/references/architecture/tendermint-core/adr-001-logging.md
-    echo '#Fix me' > ../cometbft/references/architecture/tendermint-core/adr-051-double-signing-risk-reduction.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.38.x/spec/consensus/time.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v1.x/spec/consensus/time.md
-    echo '#Fix me' > ../cometbft_versioned_docs/version-v0.38.x/spec/p2p/implementation/peer_manager.md
-
-    # ../../docs/core -> ../../core/configuration.md
-    replace "../${DOCS_NAME}_versioned_docs" "../../docs/core" "../../core/configuration.md"
-    replace "../${DOCS_NAME}_versioned_docs" "../../docs/explanation" "../../explanation"
-    replace "../${DOCS_NAME}_versioned_docs" "../../docs/references" "../../references"
-    replace "../${DOCS_NAME}_versioned_docs" "../../docs/guides" "../../guides"
+    ## Proper fixes based on the location
+    replace "../${DOCS_NAME}_versioned_docs/version-v1.x/explanation/" "../../../spec/abci/" "../../spec/abci/"
+    replace "../${DOCS_NAME}_versioned_docs/version-v1.x/guides/" "../explanation/" "../../explanation/"
+    replace "../${DOCS_NAME}_versioned_docs/version-v1.x/guides/" "../../../explanation/" "../../explanation/"
+    replace "../${DOCS_NAME}/docs/references" "../../../spec/" "../../spec/"
+    replace "../${DOCS_NAME}/docs/explanation" "../../../spec/" "../../spec/"
+    replace "../${DOCS_NAME}/docs/references" "../../../spec/" "../../spec/"
 
 
-    # cp -r $DOCS_DIR/src/components/* ./src/components/cometbft/
-    # cp $DOCS_DIR/sidebars.js ./cometbft/sidebars.js
-
-    # # images
-    # cp -r $DOCS_DIR/static/img/* ./static/img/cometbft/
-    # replace "./src/components/cometbft" "static/img/" "static/img/cometbft/"
+    echo '#Fix me' > ../cometbft/docs/spec/consensus/time.md
+    echo '#Fix me' > ../cometbft/docs/spec/p2p/implementation/peer_manager.md
+    echo '#Fix me' > ../cometbft/docs/spec/p2p/reactor-api/README.md
+    for version in ${CMBFT_VERSIONS[@]}; do
+        echo '#Fix me' > ../cometbft_versioned_docs/version-${version}/spec/consensus/time.md
+        echo '#Fix me' > ../cometbft_versioned_docs/version-${version}/spec/p2p/implementation/peer_manager.md
+        echo '#Fix me' > ../cometbft_versioned_docs/version-${version}/spec/p2p/reactor-api/README.md
+    done
 }
 
 update_sidebar() {

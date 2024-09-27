@@ -29,9 +29,9 @@ replace() {
 
     echo "Replacing '$old' with '$new' in $location"
     if [ -z "$ignore_path" ]; then
-        find $location -maxdepth 5 -type f -exec sed -i "s#$old#$new#g" {} \;
+        find "$location" -maxdepth 5 -type f -exec sed -i "s#$old#$new#g" {} \;
     else
-        find $location -maxdepth 5 -type f -not -path "*$ignore_path*" -exec sed -i "s#$old#$new#g" {} \;
+        find "$location" -maxdepth 5 -type f -not -path "*$ignore_path*" -exec sed -i "s#$old#$new#g" {} \;
     fi
 }
 
