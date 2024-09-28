@@ -84,9 +84,6 @@ copy_over_core() {
         new_dir=../${DOCS_NAME}_versioned_docs/version-${version}; mkdir -p $new_dir; cp -r ./docs/* $new_dir
 
         new_dir=../${DOCS_NAME}_versioned_docs/version-${version}/spec; mkdir -p $new_dir; cp -r ./spec/* $new_dir
-        # replace "../${DOCS_NAME}_versioned_docs/version-${version}" "../../../spec/" "../../spec/"
-
-
 
         # create sidebars for versions
         # TODO: we can dynamnically generate this in the future (or the migration to dsaurus removes this from our end)
@@ -125,11 +122,6 @@ module.exports = sidebars;
     done
 
     # TODO: hacks - Remove the following bc docusaurus no likey.
-    # .BaseConfig.Mode
-    # .PageContent table {margin: 0;}  // cometbft_versioned_docs/version-v0.34.x/references/config/config.toml.md:
-    # <br> not having closing tags - cometbft_versioned_docs/version-v0.34.x/references/qa/CometBFT-QA-34.md
-    # <a id=note1></a>
-
     # It does not like this, needs to be removed upstream
     replace "../${DOCS_NAME}_versioned_docs" ".Consensus.DoubleSignCheckHeight" ""
     replace "../${DOCS_NAME}" ".Consensus.DoubleSignCheckHeight" ""
@@ -149,10 +141,8 @@ module.exports = sidebars;
     replace "../${DOCS_NAME}_versioned_docs" "<a id=note1></a>" ""
     replace "../${DOCS_NAME}" "<a id=note1></a>" ""
 
+
     ## Proper fixes based on the location
-    replace "../${DOCS_NAME}_versioned_docs/version-v1.x/explanation/" "../../../spec/abci/" "../../spec/abci/"
-    replace "../${DOCS_NAME}_versioned_docs/version-v1.x/guides/" "../explanation/" "../../explanation/"
-    replace "../${DOCS_NAME}_versioned_docs/version-v1.x/guides/" "../../../explanation/" "../../explanation/"
     replace "../${DOCS_NAME}/docs/references" "../../../spec/" "../../spec/"
     replace "../${DOCS_NAME}/docs/explanation" "../../../spec/" "../../spec/"
     replace "../${DOCS_NAME}/docs/references" "../../../spec/" "../../spec/"
@@ -162,9 +152,14 @@ module.exports = sidebars;
     echo '#Fix me' > ../cometbft/docs/spec/p2p/implementation/peer_manager.md
     echo '#Fix me' > ../cometbft/docs/spec/p2p/reactor-api/README.md
     for version in ${CMBFT_VERSIONS[@]}; do
+        echo "Copying over docs version: $version"
         echo '#Fix me' > ../cometbft_versioned_docs/version-${version}/spec/consensus/time.md
         echo '#Fix me' > ../cometbft_versioned_docs/version-${version}/spec/p2p/implementation/peer_manager.md
         echo '#Fix me' > ../cometbft_versioned_docs/version-${version}/spec/p2p/reactor-api/README.md
+
+        replace "../${DOCS_NAME}_versioned_docs/version-${version}/explanation/" "../spec/abci/" "../../spec/abci/"
+        replace "../${DOCS_NAME}_versioned_docs/version-${version}/explanation/" "../../../spec/abci/" "../../spec/abci/"
+        replace "../${DOCS_NAME}_versioned_docs/version-${version}/guides/" "../explanation/" "../../explanation/"
     done
 }
 
