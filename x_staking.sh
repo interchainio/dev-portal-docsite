@@ -57,7 +57,7 @@ const sidebars = {
 module.exports = sidebars;
 ' > ${MODULE_NAME}/sidebars.js
 
-# add it to the bottom of cosmos-sdk/learn/00-index.md as an example
-
-
-# TODO: ideally add it to the sidebar config automatically
+# TODO: temp hack to have a list of modules
+echo '## Modules
+- [x/staking](../../../x-staking)
+' >> cosmos-sdk/docs/learn/00-index.md
