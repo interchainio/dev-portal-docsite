@@ -51,17 +51,16 @@ const config = {
   ],
 
   plugins: [
-    // getPluginContentDocs('ibc-go'),
-    // getPluginContentDocs('cosmos-sdk'),
     ...mapValidPluginsToContentDocs(validDocs),
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        indexBlog: false,
-        docsRouteBasePath: ["/"],
-        highlightSearchTermsOnTargetPage: true,
-      },
-    ],
+    // !NOTE: docusaurus/plugin-client-redirects does not work with this version of docusaurus. Check src/theme/NotFound.js for a workaround
+    // [ // TODO: fix me
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   {
+    //     indexBlog: false,
+    //     docsRouteBasePath: ["/"],
+    //     highlightSearchTermsOnTargetPage: true,
+    //   },
+    // ],
   ],
 
   themeConfig:
@@ -94,8 +93,6 @@ const config = {
             activeBaseRegex: `/cosmos-sdk/`,
           },
           // Version drop downs are merged via the theme/NavBarItem/DocsVersionDropdownNavbarItem.js
-          // getPluginDropDownVersions('cosmos-sdk'),
-          // getPluginDropDownVersions('ibc-go'),
           ...mapValidPluginsToDropDownVersions(validDocs),
           {
             href: 'https://github.com/interchainio',
@@ -107,16 +104,6 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          // TODO:
-          // {
-          //   title: 'Docs',
-          //   items: [
-          //     {
-          //      label: 'Tutorial',
-          //      to: '/docs/intro',
-          //     },
-          //   ],
-          // },
           {
             title: 'Community',
             items: [
