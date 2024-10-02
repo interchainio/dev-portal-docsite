@@ -4,6 +4,21 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const validDocs = findValidDocsAndReturnIDsArray();
+console.log('Valid docs folders found: ', validDocs);
+
+function mapValidPluginsToContentDocs(docs) {
+  return docs.map((id) => {
+    return getPluginContentDocs(id);
+  });
+}
+
+function mapValidPluginsToDropDownVersions(docs) {
+  return docs.map((id) => {
+    return getPluginDropDownVersions(id);
+  });
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Interchain Stack',
@@ -36,35 +51,16 @@ const config = {
   ],
 
   plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'ibc-go',
-        path: 'ibc-go', // must match: plugin-id
-        routeBasePath: 'ibc-go', // must match: plugin-id
-        sidebarPath: require.resolve('./ibc-go/sidebars.js'),
-        exclude: ["**/*.template.md"],
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'cosmos-sdk',
-        path: 'cosmos-sdk',
-        routeBasePath: 'cosmos-sdk',
-        sidebarPath: require.resolve('./cosmos-sdk/sidebars.js'),
-        exclude: ["**/*.template.md"],
-      },
-      // TODO: CosmWasm & cometBFT
-    ],
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        indexBlog: false,
-        docsRouteBasePath: ["/"],
-        highlightSearchTermsOnTargetPage: true,
-      },
-    ],
+    ...mapValidPluginsToContentDocs(validDocs),
+    // !NOTE: docusaurus/plugin-client-redirects does not work with this version of docusaurus. Check src/theme/NotFound.js for a workaround
+    // [ // TODO: fix me
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   {
+    //     indexBlog: false,
+    //     docsRouteBasePath: ["/"],
+    //     highlightSearchTermsOnTargetPage: true,
+    //   },
+    // ],
   ],
 
   themeConfig:
@@ -97,18 +93,7 @@ const config = {
             activeBaseRegex: `/cosmos-sdk/`,
           },
           // Version drop downs are merged via the theme/NavBarItem/DocsVersionDropdownNavbarItem.js
-          {
-            type: 'docsVersionDropdown',
-            docsPluginId: 'ibc-go', // must match: plugin-id and the url slug (www.com/ibc-go)
-            position: 'right',
-            dropdownActiveClassDisabled: true,
-          },
-          {
-            type: 'docsVersionDropdown',
-            docsPluginId: 'cosmos-sdk',
-            position: 'right',
-            dropdownActiveClassDisabled: true,
-          },
+          ...mapValidPluginsToDropDownVersions(validDocs),
           {
             href: 'https://github.com/interchainio',
             label: 'GitHub',
@@ -119,16 +104,6 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          // TODO:
-          // {
-          //   title: 'Docs',
-          //   items: [
-          //     {
-          //      label: 'Tutorial',
-          //      to: '/docs/intro',
-          //     },
-          //   ],
-          // },
           {
             title: 'Community',
             items: [
@@ -155,5 +130,45 @@ const config = {
       },
     }),
 };
+
+function getPluginContentDocs(id) {
+  return [
+    '@docusaurus/plugin-content-docs',
+    {
+      id: id,
+      path: id, // must match: plugin-id
+      routeBasePath: id, // must match: plugin-id
+      sidebarPath: require.resolve(`./${id}/sidebars.js`),
+      exclude: ["**/*.template.md"],
+    },
+  ]
+}
+
+function getPluginDropDownVersions(id) {
+  return {
+    type: 'docsVersionDropdown',
+    docsPluginId: id, // must match: plugin-id and the url slug (www.com/ibc-go)
+    position: 'right',
+    dropdownActiveClassDisabled: true,
+  }
+}
+
+function findValidDocsAndReturnIDsArray() {
+  const fs = require('fs');
+  const path = require('path');
+  const dirs = fs.readdirSync('./');
+
+  const validDocs = [];
+  dirs.forEach(dir => {
+    if (fs.existsSync(path.join(dir, 'sidebars.js')) && fs.existsSync(path.join(dir, 'docs'))) {
+      if (dir.startsWith('dsource-')) {
+        return;
+      }
+
+      validDocs.push(dir);
+    }
+  });
+  return validDocs;
+}
 
 module.exports = config;
