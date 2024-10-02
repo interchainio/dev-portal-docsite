@@ -46,6 +46,7 @@ copy_over_core() {
     # docs
     cp -r $DOCS_DIR/docs ./ibc-go
     cp -r $DOCS_DIR/architecture ./ibc-go
+    cp -r $DOCS_DIR/events ./ibc-go
     cp -r $DOCS_DIR/tutorials ./ibc-go
 
     # versioned docs
@@ -57,6 +58,7 @@ copy_over_core() {
     IBC_DIRS=`find ./ibc-go_versioned_docs/ -maxdepth 1 -name "version-*" -type d -exec echo {} \;`
     for dir in $IBC_DIRS; do
         cp -r $DOCS_DIR/architecture $dir/
+        cp -r $DOCS_DIR/events $dir/
     done
 
     # core
@@ -74,40 +76,17 @@ fix_references() {
     OLD="../../../../docs/"; NEW="../../../../ibc-go/docs/"
     replace "./ibc-go_versioned_docs" "$OLD" "$NEW"
 
-    # TODO: wip of fixing here
-    # Relative path replacements (if a file is at the root of the docs, it is just ../../ibc-go/architecture, if it is nested 1 level, it is ../../../ibc-go/architecture, etc.
     FILES=`find ./ibc-go_versioned_docs -type f -name "*.md"`
     for file in $FILES; do
-        # RELATIVE_PATH=$(echo $file | grep -o "/" | wc -l)
-        # # remove 1 from the relative path since that is the file itself
-        # RELATIVE_PATH=$((RELATIVE_PATH-1))
-
-        # echo "$RELATIVE_PATH : $file"
-
-        # NEW_STRING=$(printf "../%.0s" $(seq 1 $RELATIVE_PATH))
-        # NEW_STRING=${NEW_STRING%?} # remove the last /
-
         sed -i "s#(/architecture/#(/ibc-go/architecture/#g" $file
+        sed -i "s#(/events/events#(/ibc-go/events/#g" $file
     done
 
     FILES=`find ./ibc-go -type f -name "*.md"`
     for file in $FILES; do
-        RELATIVE_PATH=$(echo $file | grep -o "/" | wc -l)
-        # remove 2 (since we dont need to reference the ibc-go directory like we do in the versioned docs)
-        RELATIVE_PATH=$((RELATIVE_PATH-2))
-
-        # if ! grep -q "(/architecture" $file ; then
-        #     continue
-        # fi
-
-        # echo "$RELATIVE_PATH : $file"
-
-        # NEW_STRING=$(printf "../%.0s" $(seq 1 $RELATIVE_PATH))
-        # NEW_STRING=${NEW_STRING%?} # remove the last /
-
         sed -i "s#(/architecture/#(/ibc-go/architecture/#g" $file
+        sed -i "s#(/events/events#(/ibc-go/events/#g" $file
     done
-
 }
 
 fix_components() {
