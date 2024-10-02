@@ -53,6 +53,12 @@ copy_over_core() {
     cp -r $DOCS_DIR/versioned_sidebars/* ./ibc-go_versioned_sidebars
     cp -r $DOCS_DIR/versioned_docs/* ./ibc-go_versioned_docs
 
+    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v4.6.x
+    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v5.4.x
+    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v6.3.x
+    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v7.8.x
+    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v8.5.x
+
     # core
     cp $DOCS_DIR/sidebars.js ./ibc-go/sidebars.js
     cp $DOCS_DIR/src/components/*.jsx ./src/components/ibc-go/
@@ -67,6 +73,18 @@ copy_over_core() {
 fix_references() {
     OLD="../../../../docs/"; NEW="../../../../ibc-go/docs/"
     replace "./ibc-go_versioned_docs" "$OLD" "$NEW"
+
+    # TODO: smart find would be very nice here (get the parent of the folder and search for relative position of the architecture/ directory)
+
+    replace "./ibc-go/docs" "(/architecture" "(../../architecture"
+    replace "./ibc-go/middleware" "(/architecture" "(../../architecture"
+
+    # replace "./ibc-go_versioned_docs" "(/architecture" "(../../architecture" # TODO: this may be wrong
+
+    replace "./ibc-go_versioned_docs/version-v8.5.x/*/" "(../../architecture" "(../architecture"
+    replace "./ibc-go_versioned_docs/version-v7.8.x/*/" "(../../architecture" "(../architecture"
+
+    # added `slug: /ibc-go/architecture/`` to architecture/ 00-index
 }
 
 fix_components() {
