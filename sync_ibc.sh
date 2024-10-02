@@ -53,11 +53,11 @@ copy_over_core() {
     cp -r $DOCS_DIR/versioned_sidebars/* ./ibc-go_versioned_sidebars
     cp -r $DOCS_DIR/versioned_docs/* ./ibc-go_versioned_docs
 
-    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v4.6.x
-    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v5.4.x
-    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v6.3.x
-    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v7.8.x
-    cp -r $DOCS_DIR/architecture ./ibc-go_versioned_docs/version-v8.5.x
+    # find all directories in ./ibc-go_versioned_docs
+    IBC_DIRS=`find ./ibc-go_versioned_docs/ -maxdepth 1 -name "version-*" -type d -exec echo {} \;`
+    for dir in $IBC_DIRS; do
+        cp -r $DOCS_DIR/architecture $dir/
+    done
 
     # core
     cp $DOCS_DIR/sidebars.js ./ibc-go/sidebars.js
@@ -74,17 +74,40 @@ fix_references() {
     OLD="../../../../docs/"; NEW="../../../../ibc-go/docs/"
     replace "./ibc-go_versioned_docs" "$OLD" "$NEW"
 
-    # TODO: smart find would be very nice here (get the parent of the folder and search for relative position of the architecture/ directory)
+    # TODO: wip of fixing here
+    # Relative path replacements (if a file is at the root of the docs, it is just ../../ibc-go/architecture, if it is nested 1 level, it is ../../../ibc-go/architecture, etc.
+    FILES=`find ./ibc-go_versioned_docs -type f -name "*.md"`
+    for file in $FILES; do
+        # RELATIVE_PATH=$(echo $file | grep -o "/" | wc -l)
+        # # remove 1 from the relative path since that is the file itself
+        # RELATIVE_PATH=$((RELATIVE_PATH-1))
 
-    replace "./ibc-go/docs" "(/architecture" "(../../architecture"
-    replace "./ibc-go/middleware" "(/architecture" "(../../architecture"
+        # echo "$RELATIVE_PATH : $file"
 
-    # replace "./ibc-go_versioned_docs" "(/architecture" "(../../architecture" # TODO: this may be wrong
+        # NEW_STRING=$(printf "../%.0s" $(seq 1 $RELATIVE_PATH))
+        # NEW_STRING=${NEW_STRING%?} # remove the last /
 
-    replace "./ibc-go_versioned_docs/version-v8.5.x/*/" "(../../architecture" "(../architecture"
-    replace "./ibc-go_versioned_docs/version-v7.8.x/*/" "(../../architecture" "(../architecture"
+        sed -i "s#(/architecture/#(/ibc-go/architecture/#g" $file
+    done
 
-    # added `slug: /ibc-go/architecture/`` to architecture/ 00-index
+    FILES=`find ./ibc-go -type f -name "*.md"`
+    for file in $FILES; do
+        RELATIVE_PATH=$(echo $file | grep -o "/" | wc -l)
+        # remove 2 (since we dont need to reference the ibc-go directory like we do in the versioned docs)
+        RELATIVE_PATH=$((RELATIVE_PATH-2))
+
+        # if ! grep -q "(/architecture" $file ; then
+        #     continue
+        # fi
+
+        # echo "$RELATIVE_PATH : $file"
+
+        # NEW_STRING=$(printf "../%.0s" $(seq 1 $RELATIVE_PATH))
+        # NEW_STRING=${NEW_STRING%?} # remove the last /
+
+        sed -i "s#(/architecture/#(/ibc-go/architecture/#g" $file
+    done
+
 }
 
 fix_components() {
