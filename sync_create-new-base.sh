@@ -1,6 +1,6 @@
 # SDK team needs multiple nested version docs.
 
-
+# This is auto routed from /cosmos-sdk/x-<module_name> -> /x-<module_name> in /src/theme/NotFound.js
 MODULE_NAME="x-staking"
 
 echo '[
