@@ -5,7 +5,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 const validDocs = findValidDocsAndReturnIDsArray();
-console.log('Valid docs found: ', validDocs);
+console.log('Valid docs folders found: ', validDocs);
 
 function mapValidPluginsToContentDocs(docs) {
   return docs.map((id) => {

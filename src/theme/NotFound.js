@@ -4,13 +4,11 @@ import NotFound from '@theme-original/NotFound';
 
 
 // using this as a redirection wrapper since `docusaurus/plugin-client-redirects`
-//  does not work with local development.
+// does not work with local development.
 
 function createRedirects(url) {
-  console.log('createRedirects', url);
-
+  // /cosmos-sdk/x-<module> -> /x-<module>
   if (url.includes('/cosmos-sdk/x-')) {
-    console.log('createRedirects had /cosmos-sdk/x- url: ', url);
     return url.replace('/cosmos-sdk/x-', '/x-');
   }
 
