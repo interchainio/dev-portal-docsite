@@ -81,8 +81,15 @@ HACK_fix_relative_links() {
 
     # This is just cosmetic so the docs engine doesn't throw a 'Docs markdown link couldn't be resolved' error fiel filenames in backticks.
     # e.g. `CHANGELOG.md`.
-    touch ./cosmos-sdk/docs/build/migrations/CHANGELOG.md
-    touch ./cosmos-sdk_versioned_docs/version-{0.50,0.47}/build/migrations/CHANGELOG.md
+    replace "./cosmos-sdk" "\`CHANGELOG.md\`" "CHANGELOG"
+    replace "./cosmos-sdk_versioned_docs" "\`CHANGELOG.md\`" "CHANGELOG"
+    # `UPGRADING.md`
+    replace "./cosmos-sdk" "\`UPGRADING.md\`" "UPGRADING"
+    replace "./cosmos-sdk_versioned_docs" "\`UPGRADING.md\`" "UPGRADING"
+
+    # fix typo
+    replace "./cosmos-sdk" "../pacakges" "../packages"
+
 
     # this excludes a dir because of bad relative paths used in only 1 location.
     replace "./cosmos-sdk_versioned_docs" "\./01-app-go-v2.md" "../../build/building-apps/01-app-go-v2.md" "building-apps/"
