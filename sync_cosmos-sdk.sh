@@ -54,6 +54,10 @@ copy_over_core() {
     cp -r $DOCS_DIR/versioned_sidebars/* ./cosmos-sdk_versioned_sidebars
     cp -r $DOCS_DIR/versioned_docs/* ./cosmos-sdk_versioned_docs
 
+    # paste proto into docs from main repo
+    cp -r $MAIN_SDK_DIR/proto ./cosmos-sdk_versioned_docs/version-0.47/build
+    cp -r $MAIN_SDK_DIR/proto ./cosmos-sdk_versioned_docs/version-0.50/build
+
     # core
     cp -r $DOCS_DIR/src/components/* ./src/components/cosmos-sdk/
     cp $DOCS_DIR/sidebars.js ./cosmos-sdk/sidebars.js
@@ -89,6 +93,13 @@ HACK_fix_relative_links() {
 
     # fix typo
     replace "./cosmos-sdk" "../pacakges" "../packages"
+    replace "./cosmos-sdk/docs/user" "[CometBFT](github.com/cometbft/cometbft)" "[CometBFT](https://github.com/cometbft/cometbft)"
+    # replace "./cosmos-sdk_versioned_docs/version-0.47/user/run-node/06-run-production.md" "[CometBFT](github.com/cometbft/cometbft)" "[CometBFT](https://github.com/cometbft/cometbft)"
+
+    # bad links upstream
+    replace "./cosmos-sdk_versioned_docs" "01-understanding-front-running" "./01-understanding-frontrunning.md"
+    replace "./cosmos-sdk_versioned_docs" "02-mitigating-front-running-with-vote-extensions" "./02-mitigating-front-running-with-vote-extensions.md.md"
+    replace "./cosmos-sdk_versioned_docs" "03-demo-of-mitigating-front-running" "./03-demo-of-mitigating-front-running.md"
 
 
     # this excludes a dir because of bad relative paths used in only 1 location.
