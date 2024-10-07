@@ -163,7 +163,7 @@ module.exports = sidebars;
     done
 }
 
-update_sidebar() {
+# update_sidebar() {
     # TODO: done in the core copy over atm as we have to gernate it manually. Move over in the future
     # # modify the sidebar dirNames -> match the new location format (due to multiple nested versions)
     # # We replace the " as well as to not modify the name of the sidebars, just the location contents
@@ -171,10 +171,10 @@ update_sidebar() {
     # replace "./cometbft/sidebars.js" '"build"' '"docs/build"'
     # replace "./cometbft/sidebars.js" '"user"' '"docs/user"'
     # replace "./cometbft/sidebars.js" '"tutorials"' '"docs/tutorials"'
-}
+# }
 
 # TODO: ideally we do not have to do this, but some links are broken upstream.
-HACK_fix_relative_links() {
+# HACK_fix_relative_links() {
     # cometbft nested docs, pull in as references
     # BASE_DIR=./cometbft/docs/build/modules/bank/v2; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/bank/v2/README.md $BASE_DIR
     # BASE_DIR=./cometbft/docs/build/modules/tx; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/tx/README.md $BASE_DIR
@@ -193,7 +193,7 @@ HACK_fix_relative_links() {
     # OLD_PATH="../../architecture/"; NEW_PATH="../../build/architecture/"
     # replace "./cometbft" "$OLD_PATH" "$NEW_PATH"
     # replace "./cometbft_versioned_docs" "$OLD_PATH" "$NEW_PATH"
-}
+# }
 
 
 # == MAIN ==
