@@ -23,8 +23,7 @@ main() {
 
     copy_over_core
     # update_sidebar
-
-    HACK_fix_relative_links
+    # HACK_fix_relative_links
 }
 
 # == HELPER FUNCTIONS ==

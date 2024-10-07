@@ -100,12 +100,6 @@ const config = {
           // Version drop downs are merged via the theme/NavBarItem/DocsVersionDropdownNavbarItem.js
           ...mapValidPluginsToDropDownVersions(validDocs),
           {
-            type: 'docsVersionDropdown',
-            docsPluginId: 'cometbft',
-            position: 'right',
-            dropdownActiveClassDisabled: true,
-          },
-          {
             href: 'https://github.com/interchainio',
             label: 'GitHub',
             position: 'right',
