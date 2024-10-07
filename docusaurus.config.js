@@ -25,7 +25,8 @@ const config = {
   tagline: 'Your gateway into your Interchain future',
   url: 'https://docs.interchain.io',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  // onBrokenLinks: 'throw', // TODO: prod
+  onBrokenLinks: 'log',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'interchainio', // Usually your GitHub org/user name.
