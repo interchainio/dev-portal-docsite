@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --host 0.0.0.0",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -21,7 +21,8 @@
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "@easyops-cn/docusaurus-search-local": "^0.16.0"
+    "@cmfcmf/docusaurus-search-local": "^1.2.0",
+    "cheerio": "1.0.0-rc.12"
   },
   "browserslist": {
     "production": [
