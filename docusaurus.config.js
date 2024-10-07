@@ -25,8 +25,7 @@ const config = {
   tagline: 'Your gateway into your Interchain future',
   url: 'https://docs.interchain.io',
   baseUrl: '/',
-  // onBrokenLinks: 'throw', // TODO: prod
-  onBrokenLinks: 'log',
+  onBrokenLinks: 'warn', // TODO: throw for prod
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'interchainio', // Usually your GitHub org/user name.
@@ -52,16 +51,15 @@ const config = {
   ],
 
   plugins: [
-    ...mapValidPluginsToContentDocs(validDocs),
     // !NOTE: docusaurus/plugin-client-redirects does not work with this version of docusaurus. Check src/theme/NotFound.js for a workaround
-    // [ // TODO: fix me
-    //   require.resolve("@easyops-cn/docusaurus-search-local"),
-    //   {
-    //     indexBlog: false,
-    //     docsRouteBasePath: ["/"],
-    //     highlightSearchTermsOnTargetPage: true,
-    //   },
-    // ],
+    ...mapValidPluginsToContentDocs(validDocs),
+    [ // requires cheerio 1.0.0-rc.12, 1.0.0 is API breaking; https://github.com/cmfcmf/docusaurus-search-local/pull/218
+      require.resolve("@cmfcmf/docusaurus-search-local"),
+      {
+        indexDocs: true,
+        indexBlog: false,
+      },
+    ],
   ],
 
   themeConfig:
