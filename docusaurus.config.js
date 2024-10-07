@@ -60,6 +60,10 @@ const config = {
         indexBlog: false,
       },
     ],
+    // [
+    //   "@gracefullight/docusaurus-plugin-microsoft-clarity",
+    //   { projectId: "of10fgfl3n" }, // TODO: change to proper project ID @ clarity.microsoft.com
+    // ],
   ],
 
   themeConfig:
