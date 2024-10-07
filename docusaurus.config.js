@@ -91,6 +91,12 @@ const config = {
             label: 'Cosmos-SDK',
             activeBaseRegex: `/cosmos-sdk/`,
           },
+          {
+            to: '/cometbft',
+            position: 'left',
+            label: 'Comet BFT',
+            activeBaseRegex: `/cometbft/`,
+          },
           // Version drop downs are merged via the theme/NavBarItem/DocsVersionDropdownNavbarItem.js
           ...mapValidPluginsToDropDownVersions(validDocs),
           {
