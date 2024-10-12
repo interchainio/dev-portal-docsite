@@ -11,7 +11,6 @@ DOCS_NAME=ibc-go
 DOCS_DIR_TARGET=dsource-ibc-go
 DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET/docs
 
-
 main() {
     download_docs_source
 
