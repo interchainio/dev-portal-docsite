@@ -98,13 +98,19 @@ const config = {
           {
             to: '/cometbft',
             position: 'left',
-            label: 'Comet BFT',
+            label: 'Comet-BFT',
             activeBaseRegex: `/cometbft/`,
+          },
+          {
+            to: '/cosmwasm',
+            position: 'left',
+            label: 'CosmWasm',
+            activeBaseRegex: `/cosmwasm/`,
           },
           // Version drop downs are merged via the theme/NavBarItem/DocsVersionDropdownNavbarItem.js
           ...mapValidPluginsToDropDownVersions(validDocs),
           {
-            href: 'https://github.com/interchainio',
+            href: 'https://github.com/interchainio/dev-portal-docsite',
             label: 'GitHub',
             position: 'right',
           },
