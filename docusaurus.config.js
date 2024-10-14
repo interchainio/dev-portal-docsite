@@ -69,7 +69,7 @@ const config = {
         title: 'Interchain Docs',
         logo: {
           alt: 'Interchain docs site logo',
-          src: 'img/logo.svg',
+          src: 'img/Interchain_Wordmark_Balck.svg',
         },
         items: [
           // Onboarding documentation? (i.e. Spawn, or just quick start guides)
@@ -171,6 +171,18 @@ function findValidDocsAndReturnIDsArray() {
     }
   });
   return validDocs;
+}
+async function myPlugin(context, options) {
+  return {
+    name: "docusaurus-tailwindcss",
+    configurePostCss(postcssOptions) {
+      postcssOptions.plugins.push(require("postcss-import"));
+      postcssOptions.plugins.push(require("tailwindcss/nesting"));
+      postcssOptions.plugins.push(require("tailwindcss"));
+      postcssOptions.plugins.push(require("autoprefixer"));
+      return postcssOptions;
+    },
+  };
 }
 
 module.exports = config;
