@@ -137,6 +137,9 @@ html {
     &__items--right > :last-child {
       @apply right-9.5;
     }
+    &__logo img {
+      width: 128px;
+    }
   }
   &[data-theme="dark"] .navbar__item {
     @apply text-mutedLight;

@@ -80,8 +80,9 @@ const config = {
     ({
       navbar: {
         logo: {
-          alt: "Interchain docs site logo",
-          src: "img/Interchain_Wordmark_Balck.svg",
+          alt: "Interchain Docs",
+          src: "img/interchain_logo.svg",
+          href: "/",
         },
         items: [
           // Onboarding documentation? (i.e. Spawn, or just quick start guides)
@@ -116,27 +117,88 @@ const config = {
         ],
       },
       footer: {
-        style: "dark",
         links: [
+          {
+            items: [
+              {
+                html: `<a href="https://cosmos.network"><img src="/img/cosmos-logo-bw.svg" alt="Cosmos Logo"></a>`,
+              },
+            ],
+          },
+          {
+            title: "Documentation",
+            items: [
+              {
+                label: "Hermes Relayer",
+                href: "https://hermes.informal.systems/",
+              },
+              {
+                label: "Cosmos Hub",
+                href: "https://hub.cosmos.network",
+              },
+              {
+                label: "CometBFT",
+                href: "https://docs.cometbft.com",
+              },
+            ],
+          },
           {
             title: "Community",
             items: [
               {
                 label: "Discord",
-                href: "https://discordapp.com/invite/interchain",
+                href: "https://discord.com/invite/interchain",
               },
               {
                 label: "Twitter",
                 href: "https://twitter.com/interchain_io",
               },
               {
-                label: "Github",
-                href: "https://github.com/interchainio",
+                label: "YouTube",
+                href: "https://www.youtube.com/@interchain_io",
+              },
+            ],
+          },
+          {
+            title: "Other Tools",
+            items: [
+              {
+                label: "Go Relayer",
+                href: "https://github.com/cosmos/relayer",
+              },
+              {
+                label: "ibc-rs",
+                href: "https://github.com/cosmos/ibc-rs",
+              },
+              {
+                label: "interchaintest",
+                href: "https://github.com/strangelove-ventures/interchaintest",
+              },
+              {
+                label: "CosmWasm",
+                href: "https://cosmwasm.com/",
+              },
+            ],
+          },
+          {
+            title: "More",
+            items: [
+              {
+                label: "GitHub",
+                href: "https://github.com/cosmos/ibc-go",
+              },
+              {
+                label: "IBC Protocol Website",
+                href: "https://www.ibcprotocol.dev/",
+              },
+              {
+                label: "Privacy Policy",
+                href: "https://v1.cosmos.network/privacy",
               },
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} Interchain Foundation. All rights reserved.`,
+        copyright: `© ${new Date().getFullYear()} <a href="https://interchain.io/">Interchain Foundation</a>. All rights reserved.`,
       },
       prism: {
         theme: lightCodeTheme,
