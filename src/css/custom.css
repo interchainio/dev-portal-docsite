@@ -119,7 +119,7 @@ html {
     }
     &__brand {
       & + * {
-        @apply ml-auto;
+        @apply ml-0; /*Makes it left aligned, use ml-auto for right align*/
       }
     }
     &__link--active {
