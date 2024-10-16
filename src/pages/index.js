@@ -27,9 +27,9 @@ function HeroSection() {
   return (
     <section name="hero" id="hero">
       {/* Hero */}
-      <div className="container py-24 lg:py-32">
+      <div className="py-24 lg:py-32">
         {/* Grid */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
+        <div className="grid md:grid-cols-2 md:items-center">
           <div>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
               {/* siteConfig.title */}Interchain Developer Portal
@@ -79,9 +79,14 @@ function HeroSection() {
           {/* Col */}
           <div className="relative ms-4">
             <img
-              className="w-full rounded-md"
-              src="https://placehold.co/800x700"
-              alt="Image Description"
+              className="dark:hidden w-full rounded-md"
+              src="/img/squares1-black.svg"
+              alt="hero"
+            />
+            <img
+              className="hidden dark:block w-full rounded-md"
+              src="/img/squares1-white.svg"
+              alt="hero"
             />
           </div>
           {/* End Col */}
