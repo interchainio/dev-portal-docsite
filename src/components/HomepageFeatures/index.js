@@ -48,7 +48,7 @@ const FeatureList = [
 
 function Feature({ Svg, title, description, docsLink }) {
   return (
-    <div className="border max-w-lg rounded-sm p-4 flex flex-row items-center justify-center gap-8">
+    <div className="border max-w-lg rounded-sm p-4 flex flex-col md:flex-row items-center justify-center gap-8">
       <div className="text-center">
         <a href={docsLink}>
           <Svg className={styles.featureSvg} alt={title} />
@@ -71,7 +71,7 @@ export default function HomepageFeatures() {
       <h2 className="text-2xl font-extrabold tracking-tight lg:text-4xl text-center">
         Discover the Interchain Stack
       </h2>
-      <div className="flex flex-wrap gap-4 items-center justify-center mt-20 mb-32">
+      <div className="flex flex-wrap gap-4 items-center justify-center mt-8 md:mt-20 mb-32">
         {FeatureList.map((props, idx) => (
           <Feature key={idx} {...props} />
         ))}

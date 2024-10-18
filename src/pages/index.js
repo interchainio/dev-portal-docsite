@@ -27,14 +27,14 @@ function HeroSection() {
   return (
     <section name="hero" id="hero">
       {/* Hero */}
-      <div className="py-24 lg:py-32">
+      <div className="pt-8 pb-6 md:py-24 lg:py-32">
         {/* Grid */}
         <div className="grid md:grid-cols-2 md:items-center">
           <div>
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            <h1 className="text-center md:text-left scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
               {/* siteConfig.title */}Interchain Docsite
             </h1>
-            <p className="mt-3 text-xl text-muted-foreground">
+            <p className="mt-3 text-center md:text-left text-xl text-muted-foreground">
               {/* siteConfig.tagline */}Unified documentation to build
               self-sovereign interoperable blockchains.
             </p>
@@ -46,8 +46,8 @@ function HeroSection() {
               </Button> */}
             </div>
             {/* End Buttons */}
-            <div className="mt-6 lg:mt-10  border-t-2">
-              <p className="py-5 text-current italic font-inter">
+            <div className="mt-8 md:mt-6 lg:mt-10 border-t-2">
+              <p className="text-center md:text-left py-6 md:py-5 text-current italic font-inter">
                 Trusted by the best teams in the industry
               </p>
               <div className="flex flex-wrap sm:justify-start justify-center items-center gap-x-5">
@@ -77,7 +77,7 @@ function HeroSection() {
             </div>
           </div>
           {/* Col */}
-          <div className="relative ms-4">
+          <div className="ms-4 hidden md:block relative">
             <img
               className="dark:hidden w-full rounded-md"
               src="/img/squares1-black.svg"
