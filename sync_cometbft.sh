@@ -12,7 +12,7 @@ DOCS_DIR_TARGET=dsource-cometbft
 DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET
 
 # CMBFT_VERSIONS=("v1.x" "v0.34.x" "v0.37.x" "v0.38.x")
-CMBFT_VERSIONS=("v1.x" "v0.38.x")
+CMBFT_VERSIONS=("v1.x")
 
 main() {
     # pre req: we need multiple branches from the cometbft repo, but are cloning a shallow copy.
@@ -139,6 +139,76 @@ module.exports = sidebars;
 
     replace "../${DOCS_NAME}_versioned_docs" "<a id=note1></a>" ""
     replace "../${DOCS_NAME}" "<a id=note1></a>" ""
+
+    # TODO: these rms allow for the search to index. Unsure what is broken in them. Just is required for now to build
+    rm ../${DOCS_NAME}_versioned_docs/version-v1.x/references/architecture/tendermint-core/adr-051-double-signing-risk-reduction.md
+    rm ../${DOCS_NAME}_versioned_docs/version-v1.x/references/architecture/tendermint-core/adr-052-tendermint-mode.md
+    rm ../${DOCS_NAME}_versioned_docs/version-v1.x/references/rfc/tendermint-core/rfc-013-abci++.md
+    # rm ../${DOCS_NAME}_versioned_docs/version-v0.38.x/architecture/tendermint-core/adr-051-double-signing-risk-reduction.md
+    # rm ../${DOCS_NAME}_versioned_docs/version-v0.38.x/architecture/tendermint-core/adr-052-tendermint-mode.md
+    # rm ../${DOCS_NAME}_versioned_docs/version-v0.38.x/rfc/tendermint-core/rfc-013-abci++.md
+    rm ../${DOCS_NAME}/docs/references/architecture/tendermint-core/adr-051-double-signing-risk-reduction.md
+    rm ../${DOCS_NAME}/docs/references/architecture/tendermint-core/adr-052-tendermint-mode.md
+    rm ../${DOCS_NAME}/docs/references/rfc/tendermint-core/rfc-013-abci++.md
+
+    # TODO: misc: broken links
+    # check_dupes = {}
+    # for line in text.split('\n'):
+    #     if '[WARNING]' not in line or 'image' in line:
+    #         continue
+    #     line = line.replace("[WARNING] Docs markdown link couldn't be resolved: (", '')
+    #     try:
+    #         path, other = line.split(') in ')
+    #     except:
+    #         print(line)
+    #         exit(999)
+    #     replaceArea = "../${DOCS_NAME}"
+    #     if 'version-' in other:
+    #         replaceArea += "_versioned_docs"
+    #     if replaceArea not in check_dupes:
+    #         check_dupes[replaceArea] = []
+    #     if path in check_dupes[replaceArea]:
+    #         continue # skip, duplicate for this replace area
+    #     check_dupes[replaceArea].append(path)
+    #     print(f'replace "{replaceArea}" "{path}" "https://docs.cometbft.com/"')
+
+    replace "../${DOCS_NAME}_versioned_docs" "./adr-123.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../DOCS_README.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../scripts/qa/reporting/README.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../spec/consensus/proposer-based-timestamp/README.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "./rfc-NNN-title.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../spec/abci/abci++_methods.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../spec/abci/abci++_methods.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../introduction/install.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../explanation/core/metrics.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../explanation/core/proposer-based-timestamps.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../explanation/core/running-in-production.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../explanation/introduction/what-is-cometbft.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../explanation/core/using-cometbft.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../explanation/core/metrics.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../explanation/core/rpc.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../explanation/introduction/what-is-cometbft.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../explanation/introduction/install.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "./adr-123.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../DOCS_README.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../app-dev/indexing-transactions.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../../../scripts/qa/reporting/README.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "./rfc-NNN-title.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../../spec/abci/abci%2B%2B_app_requirements.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../../docs/guides/app-dev/abci-cli.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../../docs/references/rfc/rfc-100-abci-vote-extension-propag.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../../docs/explanation/core/configuration.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../bft-time.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "./configuration.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}/docs" "../../spec/abci/abci++_methods.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../spec/abci/abci++_comet_expected_behavior.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../app-dev/indexing-transactions.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../spec/consensus/bft-time.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../../spec/abci/abci++_app_requirements.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../spec/abci/abci%2B%2B_app_requirements.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../docs/explanation/core/configuration.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../docs/references/rfc/rfc-100-abci-vote-extension-propag.md" "https://docs.cometbft.com/"
+    replace "../${DOCS_NAME}_versioned_docs" "../../docs/guides/app-dev/abci-cli.md" "https://docs.cometbft.com/"
 
 
     ## Proper fixes based on the location
