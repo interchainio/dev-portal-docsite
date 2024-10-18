@@ -32,7 +32,7 @@ function HeroSection() {
         <div className="grid md:grid-cols-2 md:items-center">
           <div>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-              {/* siteConfig.title */}Interchain Developer Portal
+              {/* siteConfig.title */}Interchain Docsite
             </h1>
             <p className="mt-3 text-xl text-muted-foreground">
               {/* siteConfig.tagline */}Unified documentation to build
