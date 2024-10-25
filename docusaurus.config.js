@@ -136,27 +136,51 @@ const config = {
       },
       footer: {
         links: [
+          {},
+        //   {
+        //     items: [
+        //       {
+        //         html: `<a href="https://github.com/cosmos"><img src="/img/cosmossdk-brandmark.svg" alt="Cosmos-SDK"></a>`,
+        //       },
+        //       {
+        //         html: `<a href="https://github.com/cosmos/ibc-go"><img src="/img/ibc-brandmark.svg" alt="IBC-Go"></a>`,
+        //       },
+        //     ],
+        //   },
           {
+            title: "Stack Components",
             items: [
               {
-                html: `<a href="https://cosmos.network"><img src="/img/cosmos-logo-bw.svg" alt="Cosmos Logo"></a>`,
+                label: "IBC-Go",
+                href: "https://github.com/cosmos/ibc-go",
               },
-            ],
-          },
-          {
-            title: "Documentation",
-            items: [
+              {
+                label: "Cosmos-SDK",
+                href: "https://github.com/cosmos/cosmos-sdk",
+              },
+              {
+                label: "CometBFT",
+                href: "https://github.com/cometbft/cometbft",
+              },
+              {
+                label: "CosmWasm",
+                href: "https://github.com/CosmWasm/cosmwasm",
+              },
+              {
+                label: "Go Relayer",
+                href: "https://github.com/cosmos/relayer",
+              },
               {
                 label: "Hermes Relayer",
                 href: "https://hermes.informal.systems/",
               },
               {
-                label: "Cosmos Hub",
-                href: "https://hub.cosmos.network",
+                label: "IBC-rs",
+                href: "https://github.com/cosmos/ibc-rs",
               },
               {
-                label: "CometBFT",
-                href: "https://docs.cometbft.com",
+                label: "Interchaintest",
+                href: "https://github.com/strangelove-ventures/interchaintest",
               },
             ],
           },
@@ -178,40 +202,11 @@ const config = {
             ],
           },
           {
-            title: "Other Tools",
+            title: "Legal",
             items: [
-              {
-                label: "Go Relayer",
-                href: "https://github.com/cosmos/relayer",
-              },
-              {
-                label: "ibc-rs",
-                href: "https://github.com/cosmos/ibc-rs",
-              },
-              {
-                label: "interchaintest",
-                href: "https://github.com/strangelove-ventures/interchaintest",
-              },
-              {
-                label: "CosmWasm",
-                href: "https://cosmwasm.com/",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "GitHub",
-                href: "https://github.com/cosmos/ibc-go",
-              },
-              {
-                label: "IBC Protocol Website",
-                href: "https://www.ibcprotocol.dev/",
-              },
               {
                 label: "Privacy Policy",
-                href: "https://v1.cosmos.network/privacy",
+                href: "https://interchain.io/privacy",
               },
             ],
           },
