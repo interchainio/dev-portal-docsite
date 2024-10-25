@@ -15,6 +15,12 @@ replace() {
         /*) echo "absolute path is not allowed for saftey reasons: $location"; panic ;;
     esac
 
+    if [ $location == ".." ] || [ $location == "../" ] || [ $location == "./" ] || [ $location == "." ]; then
+        echo "Invalid location for saftey. -> $location"
+        panic
+    fi
+
+
     # see if $location is a directory or a file
     if [ ! -f $location ] && [ ! -d $location ]; then
         echo "File or directory '$location' does not exist."
@@ -23,9 +29,9 @@ replace() {
 
     echo "Replacing '$old' with '$new' in $location"
     if [ -z "$ignore_path" ]; then
-        find $location -type f -exec sed -i "s#$old#$new#g" {} \;
+        find "$location" -maxdepth 10 -type f -exec sed -i "s#$old#$new#g" {} \;
     else
-        find $location -type f -not -path "*$ignore_path*" -exec sed -i "s#$old#$new#g" {} \;
+        find "$location" -maxdepth 10 -type f -not -path "*$ignore_path*" -exec sed -i "s#$old#$new#g" {} \;
     fi
 }
 
