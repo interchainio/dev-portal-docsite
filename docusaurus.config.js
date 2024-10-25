@@ -105,13 +105,13 @@ const config = {
           {
             to: "/cosmos-sdk/learn",
             position: "left",
-            label: "Cosmos-SDK",
+            label: "CosmosSDK",
             activeBaseRegex: `/cosmos-sdk/`,
           },
           {
             to: '/cometbft',
             position: 'left',
-            label: 'Comet-BFT',
+            label: 'CometBFT',
             activeBaseRegex: `/cometbft/`,
           },
           {
@@ -155,7 +155,7 @@ const config = {
                 href: "https://github.com/cosmos/ibc-go",
               },
               {
-                label: "Cosmos-SDK",
+                label: "CosmosSDK",
                 href: "https://github.com/cosmos/cosmos-sdk",
               },
               {
