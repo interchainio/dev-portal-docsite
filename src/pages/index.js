@@ -40,10 +40,13 @@ function HeroSection() {
             </p>
             {/* Buttons */}
             <div className="mt-7 grid gap-3 w-full sm:inline-flex">
-              <Button size="lg">Quick Start</Button>
-              {/* <Button variant={"outline"} size={"lg"}>
-                Contact sales team
-              </Button> */}
+              {/* TODO: move into the docs-interchain repo here */}
+              <Link to="https://rollchains.github.io/spawn/v0.50/">
+                <Button size="lg">Quick Start</Button>
+                {/* <Button variant={"outline"} size={"lg"}>
+                  Contact sales team
+                </Button> */}
+              </Link>
             </div>
             {/* End Buttons */}
             <div className="mt-8 md:mt-6 lg:mt-10 border-t-2">

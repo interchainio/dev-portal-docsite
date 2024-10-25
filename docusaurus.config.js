@@ -115,7 +115,9 @@ const config = {
             activeBaseRegex: `/cometbft/`,
           },
           {
-            to: '/cosmwasm',
+            // TODO:
+            // to: '/cosmwasm',
+            to: 'https://docs.cosmwasm.com/',
             position: 'left',
             label: 'CosmWasm',
             activeBaseRegex: `/cosmwasm/`,
