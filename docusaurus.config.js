@@ -109,7 +109,9 @@ const config = {
             activeBaseRegex: `/cosmos-sdk/`,
           },
           {
-            to: '/cometbft',
+            // TODO:
+            // to: '/cometbft',
+            to: 'https://docs.cometbft.com/',
             position: 'left',
             label: 'CometBFT',
             activeBaseRegex: `/cometbft/`,
