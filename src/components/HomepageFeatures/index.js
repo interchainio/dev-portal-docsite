@@ -34,7 +34,7 @@ const FeatureList = [
         algorithm for the Interchain.
       </>
     ),
-    docsLink: "comet-bft",
+    docsLink: "cometbft",
   },
   {
     title: "CosmWasm",
