@@ -82,6 +82,14 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      announcementBar: {
+        id: 'in_progress_website',
+        content:
+          'The Interchain Stack Docsite is in MVP state; please submit comments with the feedback button. The Ask AI button is also very powerful.',
+        backgroundColor: '#20232a',
+        textColor: '#fff',
+        isCloseable: true,
+      },
       navbar: {
         logo: {
           alt: "Interchain Docs",
