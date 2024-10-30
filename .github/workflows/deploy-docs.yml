@@ -1,0 +1,40 @@
+# This deploy-docs workflow was created based on instructions from:
+# https://docusaurus.io/docs/deployment
+name: Deploy to GitHub Pages
+
+permissions:
+  contents: write
+  actions: write
+  pages: write
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: 🤔 Sync latest Upstream
+        run: make sync-docs
+
+      - name: Build website 🔨
+        run: make build-docs
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.6.4
+        with:
+          branch: gh-pages
+          folder: build
+          single-commit: true
