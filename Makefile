@@ -19,7 +19,7 @@ dev-docs:
 sync-docs:
 	# @bash sync_cosmos-sdk.sh
 	# @bash sync_ibc.sh
-	@bash echo skipping sync-docs for now. UNDO ME
+	@echo skipping sync-docs for now. UNDO ME
 
 .PHONY: help
 help: Makefile
