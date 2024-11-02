@@ -1,5 +1,8 @@
 name: 'Netlify Deploy'
 
+permissions:
+  pull-requests: write
+
 on:
 #   release:
 #     types: [published]
@@ -73,3 +76,30 @@ jobs:
 
     - name: DEBUG=WILL BE REMOVED
       run: echo ${{ steps.url_preview.outputs.NETLIFY_PREVIEW_URL }}
+
+    - name: Comment URL Preview on PR
+      uses: actions/github-script@v7
+      if: ${{ env.BRANCH_NAME != 'main' }}
+      env:
+        NETLIFY_PREVIEW_URL: ${{ steps.url_preview.outputs.NETLIFY_PREVIEW_URL }}
+      with:
+        script: |
+          async function comment(){
+            const result = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+            })
+            const issueNumber = result.data[0].number
+            if(issueNumber){
+              await github.rest.issues.createComment({
+                issue_number: issueNumber,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Preview URL: ' + process.env.NETLIFY_PREVIEW_URL
+              })
+            }else{
+              console.log('No PR found for commit ' + context.sha)
+            }
+          }
+          comment()
