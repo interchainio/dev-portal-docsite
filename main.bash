@@ -4,7 +4,7 @@
 
 npm i
 
-bash sync_ibc.sh
+# bash sync_ibc.sh ## TODO:
 # bash sync_cosmos-sdk.sh ## TODO:
 # TODO: CometBFT, Wasmd
 
