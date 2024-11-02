@@ -23,7 +23,7 @@ function mapValidPluginsToDropDownVersions(docs) {
 const config = {
   title: "Interchain Stack",
   tagline: "Your gateway into your Interchain future",
-  url: "https://docs.interchain.io",
+  url: "https://docs-interchain.io", // TODO:
   baseUrl: "/",
   onBrokenLinks: "warn", // TODO: throw for prod
   onBrokenMarkdownLinks: "warn",
