@@ -17,8 +17,9 @@ dev-docs:
 ## sync-docs: Grab the latest upstream documentation
 .PHONY: sync-docs
 sync-docs:
-	@bash sync_cosmos-sdk.sh
-	@bash sync_ibc.sh
+	# @bash sync_cosmos-sdk.sh
+	# @bash sync_ibc.sh
+	@bash echo skipping sync-docs for now. UNDO ME
 
 .PHONY: help
 help: Makefile
