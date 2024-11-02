@@ -47,9 +47,8 @@ jobs:
     - name: Install Dependencies
       run: npm ci
 
-      # TODO:
-    # - name: 🤔 Sync latest Upstream
-      # run: make sync-docs
+    - name: 🤔 Sync latest Upstream
+      run: make sync-docs
 
     - name: Build website 🔨
       run: make build-docs
