@@ -5,7 +5,7 @@
 npm i
 
 bash sync_ibc.sh
-bash sync_cosmos-sdk.sh
+# bash sync_cosmos-sdk.sh ## TODO:
 # TODO: CometBFT, Wasmd
 
 npm run build
