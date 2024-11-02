@@ -9,20 +9,23 @@ on:
 
 env:
   BRANCH_NAME: ${{ github.ref_name }}
-  SITE_ID: "reece-icf-docs-site" # TODO: this should be a secret for prod?
 
 jobs:
   deploy:
     name: 'Deploy to Netlify'
     runs-on: ubuntu-latest
     steps:
-    #   - uses: jsmrcaga/action-netlify-deploy@v2.0.0
-    #     with:
-    #
-    #       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-    #       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    #       NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
-    #       NETLIFY_DEPLOY_TO_PROD: true
+    # ensure the secrets are set, if not, error
+    - name: Check Secrets
+      run: |
+        if [ -z "${{ secrets.NETLIFY_SITE_ID }}" ]; then
+          echo "NETLIFY_SITE_ID is not set. Please set it in the repository secrets."
+          exit 1
+        fi
+        if [ -z "${{ secrets.NETLIFY_AUTH_TOKEN }}" ]; then
+          echo "NETLIFY_AUTH_TOKEN is not set. Please set it in the repository secrets."
+          exit 1
+        fi
 
     - name: Repository Checkout
       uses: actions/checkout@v4
@@ -47,6 +50,7 @@ jobs:
 
     # https://app.netlify.com/user/applications#personal-access-tokens
     # ref: https://www.raulmelo.me/en/blog/deploying-netlify-github-actions-guide
+    # ref: NETLIFY_SITE_ID is a UUID from Netlify
     - name: Deploy to Netlify
       id: netlify_deploy
       run: |
@@ -54,7 +58,7 @@ jobs:
         if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
         netlify deploy \
           --dir dist \
-          --site ${{ env.SITE_ID }} \
+          --site ${{ secrets.NETLIFY_SITE_ID }} \
           --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
           $prod_flag \
           --json
