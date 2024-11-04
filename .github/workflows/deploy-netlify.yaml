@@ -6,6 +6,7 @@ permissions:
   pull-requests: write
 
 on:
+# TODO: cron
 #   release:
 #     types: [published]
   push:
