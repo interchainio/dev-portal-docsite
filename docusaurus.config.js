@@ -19,12 +19,17 @@ function mapValidPluginsToDropDownVersions(docs) {
   });
 }
 
+var baseURL = "/"
+if (process.env.IS_GH_PAGES) {
+  baseURL = "/dev-portal-docsite/"
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Interchain Stack",
   tagline: "Your gateway into your Interchain future",
   url: "https://docs-interchain.io", // TODO:
-  baseUrl: "/dev-portal-docsite/", // TODO: this is only for GH pages, docs.interchain.io should be /
+  baseUrl: baseURL,
   onBrokenLinks: "warn", // TODO: throw for prod
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -59,6 +64,16 @@ const config = {
       {
         indexDocs: true,
         indexBlog: false,
+      },
+    ],
+    [
+      '@docusaurus/plugin-sitemap',
+      {
+        id: 'sitemap',
+        changefreq: 'weekly',
+        priority: 0.5,
+        ignorePatterns: ['/tags/**'],
+        filename: 'sitemap.xml',
       },
     ],
     // [
