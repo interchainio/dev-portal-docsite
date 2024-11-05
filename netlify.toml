@@ -1,0 +1,5 @@
+#  a request to `https://kapa-widget-proxy-la7dkmplpq-uc.a.run.app/proxy/query/v2/chat/stream/` is made but results in a CORS error with netlify. Fix this using a redirect
+[[headers]]
+  for = "/*" # you can configure the correct paths here
+  [headers.values]
+    access-control-allow-origin = "*" # see a list of allowed values here: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
