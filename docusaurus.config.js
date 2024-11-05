@@ -24,7 +24,7 @@ const config = {
   title: "Interchain Stack",
   tagline: "Your gateway into your Interchain future",
   url: "https://docs-interchain.io", // TODO:
-  baseUrl: "/",
+  baseUrl: "/dev-portal-docsite/", // TODO: this is only for GH pages, docs.interchain.io should be /
   onBrokenLinks: "warn", // TODO: throw for prod
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
