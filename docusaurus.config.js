@@ -97,13 +97,13 @@ const config = {
           href: "/",
         },
         items: [
-          // Onboarding documentation? (i.e. Spawn, or just quick start guides)
-          // {
-          //   type: "doc",
-          //   position: "left",
-          //   docId: "intro",
-          //   label: "Onboard",
-          // },
+          // new items require updating:
+          {
+            type: "doc",
+            position: "left",
+            docId: "intro",
+            label: "Onboard",
+          },
           {
             to: "/ibc-go", // To highlight the navbar item, you must link to a document, not a top-level directory
             position: "left",
