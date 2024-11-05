@@ -8,7 +8,7 @@ CURRENT_DIR=$(pwd)
 source ./sync_helpers.sh
 DOCS_NAME=onboarding
 
-DOCS_DIR_TARGET=dsource-spawn
+DOCS_DIR_TARGET=dsource-onboarding
 DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET/docs
 
 main() {
