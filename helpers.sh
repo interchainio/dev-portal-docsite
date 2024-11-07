@@ -46,3 +46,44 @@ cp-improved() {
 panic() {
     kill -INT $$
 }
+
+# --- Downloads ---
+
+download_cometbft() {
+    if [ -z "$1" ]; then
+        echo "download_cometbft requires 1 argument: download_cometbft \$DOCS_DIR_TARGET"
+        panic
+    fi
+    DOCS_DIR_TARGET=$1
+    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cometbft/cometbft.git $DOCS_DIR_TARGET
+}
+
+download_ibcgo() {
+    if [ -z "$1" ]; then
+        echo "download_ibcgo requires 1 argument: download_ibcgo \$DOCS_DIR_TARGET"
+        panic
+    fi
+    DOCS_DIR_TARGET=$1
+    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/ibc-go.git $DOCS_DIR_TARGET
+}
+
+download_spawn_onboarding() {
+    if [ -z "$1" ]; then
+        echo "download_spawn_onboarding requires 1 argument: download_spawn_onboarding \$DOCS_DIR_TARGET"
+        panic
+    fi
+    DOCS_DIR_TARGET=$1
+    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/rollchains/spawn.git $DOCS_DIR_TARGET
+}
+
+download_cosmossdk() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "download_cosmossdk requires 2 arguments: download_cosmossdk \$DOCS_DIR_TARGET \$MAIN_SDK_DIR_TARGET"
+        panic
+    fi
+
+    DOCS_DIR_TARGET=$1
+    MAIN_SDK_DIR_TARGET=$2
+    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk-docs.git $DOCS_DIR_TARGET
+    git -C "$MAIN_SDK_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk.git $MAIN_SDK_DIR_TARGET
+}

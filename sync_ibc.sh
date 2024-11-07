@@ -5,7 +5,7 @@
 #
 
 CURRENT_DIR=$(pwd)
-source ./sync_helpers.sh
+source ./helpers.sh
 DOCS_NAME=ibc-go
 
 DOCS_DIR_TARGET=dsource-ibc-go
@@ -30,7 +30,7 @@ unsafe_cleanup_ibc_go() {
 
 download_docs_source() {
     # Downloads documentation source for the repo
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/ibc-go.git $DOCS_DIR_TARGET
+
 
     if [ -z "$DOCS_NAME" ]; then
         echo "DOCS_NAME is unset. Set it to the name of the docs you are syncing (i.e. ibc-go)."

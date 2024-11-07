@@ -5,7 +5,7 @@
 #
 
 CURRENT_DIR=$(pwd)
-source ./sync_helpers.sh
+source ./helpers.sh
 DOCS_NAME=cometbft
 
 DOCS_DIR_TARGET=dsource-cometbft
@@ -35,7 +35,7 @@ unsafe_cleanup_cosmossdk() {
 
 download_docs_source() {
     # Downloads documentation source for the repo
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cometbft/cometbft.git $DOCS_DIR_TARGET
+    download_cometbft $DOCS_DIR_TARGET
 
     if [ -z "$DOCS_NAME" ]; then
         echo "DOCS_NAME is unset. Set it to the name of the docs you are syncing (i.e. cometbft)."

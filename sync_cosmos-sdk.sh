@@ -5,7 +5,7 @@
 #
 
 CURRENT_DIR=$(pwd)
-source ./sync_helpers.sh
+source ./helpers.sh
 DOCS_NAME=cosmos-sdk
 
 DOCS_DIR_TARGET=dsource-cosmos-sdk
@@ -35,8 +35,7 @@ unsafe_cleanup_cosmossdk() {
 
 download_docs_source() {
     # Downloads documentation source for the repo
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk-docs.git $DOCS_DIR_TARGET
-    git -C "$MAIN_SDK_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk.git $MAIN_SDK_DIR_TARGET
+    download_cosmossdk $DOCS_DIR $MAIN_SDK_DIR
 
     if [ -z "$DOCS_NAME" ]; then
         echo "DOCS_NAME is unset. Set it to the name of the docs you are syncing (i.e. cosmos-sdk)."
