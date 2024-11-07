@@ -1,0 +1,45 @@
+name: verify
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  does-build:
+    runs-on: ubuntu-latest
+    # env:
+      # THROW_ON_BROKEN_LINKS: true # TODO:
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: pull docs from current latest
+        run: make sync-docs
+
+      - name: build-docs w/o errors
+        run: make build-docs
+
+  uses-latest-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: grab latest commits
+        run: make latest-commits
+
+      - name: check for latest commits diff
+        run: |
+            if [ -n "$(git status --porcelain)" ]; then
+                echo "There are changes in the latest-commits"
+                exit 1
+            else
+                echo "No changes in the latest-commits"
+            fi
+

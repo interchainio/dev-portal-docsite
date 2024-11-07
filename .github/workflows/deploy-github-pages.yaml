@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: gh pages deploy
 
 permissions:
   contents: write
@@ -13,9 +13,10 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to GitHub Pages
+    name: deploy to gh-pages
     runs-on: ubuntu-latest
     env:
+      # THROW_ON_BROKEN_LINKS is not called here since verify-deployment uses it. So a PR would fail.
       IS_GH_PAGES: true
     steps:
       - uses: actions/checkout@v4

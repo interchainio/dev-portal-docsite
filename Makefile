@@ -1,4 +1,3 @@
-
 ## build-docs: Build the documentation to static files.
 .PHONY: build-docs
 build-docs:
@@ -14,12 +13,17 @@ serve-docs:
 dev-docs:
 	@npm run start
 
+## latest-commits: Pulls the latest commits from upstream
+.PHONY: latest-commits
+latest-commits:
+	@bash ./scripts/sync-latest-commits.sh
+
 ## sync-docs: Grab the latest upstream documentation
 .PHONY: sync-docs
 sync-docs:
-	@bash sync_cosmos-sdk.sh
-	@bash sync_ibc.sh
-	@bash sync_onboarding.sh
+	@bash ./scripts/sync_cosmos-sdk.sh
+	@bash ./scripts/sync_ibc.sh
+	@bash ./scripts/sync_onboarding.sh
 
 .PHONY: help
 help: Makefile

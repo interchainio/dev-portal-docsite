@@ -28,13 +28,20 @@ if (process.env.IS_GH_PAGES) {
   baseURL = `/${ProjectName}/`
 }
 
+
+/** @type {import('@docusaurus/types').ReportingSeverity} */
+var reportSeverity = "warn";
+if (process.env.THROW_ON_BROKEN_LINKS) {
+  reportSeverity = "throw";
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Interchain Stack",
   tagline: "Your gateway into your Interchain future",
   url: "https://docs-interchain.io", // TODO: docs.interchain.io
   baseUrl: baseURL,
-  onBrokenLinks: "warn", // TODO: throw for prod
+  onBrokenLinks: reportSeverity,
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: OrgName,
