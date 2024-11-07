@@ -1,11 +1,12 @@
 #!/bin/bash
 #
-# To run this script, ensure you have setup the docusaurus.config.js first for new repos.
-# This then migrates it over to here.
+# Run this file from the root of the directory:
+#
+# bash ./scripts/sync_cosmos-sdk.sh
 #
 
 CURRENT_DIR=$(pwd)
-source ./helpers.sh
+source "./scripts/helpers.sh"
 DOCS_NAME=cosmos-sdk
 
 DOCS_DIR_TARGET=dsource-cosmos-sdk

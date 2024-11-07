@@ -1,8 +1,4 @@
 #!/bin/bash
-#
-# To run this script, ensure you have setup the docusaurus.config.js first for new repos.
-# This then migrates it over to here.
-#
 
 CURRENT_DIR=$(pwd)
 source ./helpers.sh
