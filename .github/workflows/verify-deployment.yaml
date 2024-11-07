@@ -10,7 +10,7 @@ concurrency:
 jobs:
   does-build:
     runs-on: ubuntu-latest
-    env:
+    # env:
       # THROW_ON_BROKEN_LINKS: true # TODO:
     steps:
       - uses: actions/checkout@v4
