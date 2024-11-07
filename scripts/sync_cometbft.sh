@@ -34,8 +34,7 @@ unsafe_cleanup_cosmossdk() {
 }
 
 download_docs_source() {
-    # Downloads documentation source for the repo
-    download_cometbft $DOCS_DIR_TARGET
+    download_repo "cometbft" "$(jq -r '.cometbft' <latest.json)"
 
     if [ -z "$DOCS_NAME" ]; then
         echo "DOCS_NAME is unset. Set it to the name of the docs you are syncing (i.e. cometbft)."

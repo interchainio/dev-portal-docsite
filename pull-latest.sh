@@ -1,25 +1,26 @@
 #!/bin/bash
-
+#
 # Syncs the latest commits from the upstream as a change file.
-
+#
+set -e
 source ./scripts/helpers.sh
 
 # --- Download latest source ---
 
 # these names should match each sync_* file
-download_cometbft "dsource-cometbft"
+download_repo "cometbft"
 COMETBFT_COMMIT=$(git -C "dsource-cometbft" rev-parse HEAD)
 
-download_ibcgo "dsource-ibc-go"
+download_repo "ibc-go"
 IBC_GO_COMMIT=$(git -C "dsource-ibc-go" rev-parse HEAD)
 
-download_onboarding "dsource-onboarding"
+download_repo "onboarding"
 SPAWN_ONBOARDING_COMMIT=$(git -C "dsource-onboarding" rev-parse HEAD)
 
-download_cosmossdk "dsource-cosmos-sdk"
+download_repo "cosmos-sdk"
 COSMOS_SDK_COMMIT=$(git -C "dsource-cosmos-sdk" rev-parse HEAD)
 
-download_cosmossdk_main "dsource-cosmos-sdk-main"
+download_repo "cosmos-sdk-main"
 COSMOS_SDK_MAIN_COMMIT=$(git -C "dsource-cosmos-sdk-main" rev-parse HEAD)
 
 # --- Write to file ---

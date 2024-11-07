@@ -25,8 +25,7 @@ unsafe_cleanup_ibc_go() {
 
 
 download_docs_source() {
-    # Downloads documentation source for the repo
-
+    download_repo "onboarding" "$(jq -r '.onboarding' <latest.json)"
 
     if [ -z "$DOCS_NAME" ]; then
         echo "DOCS_NAME is unset. Set it to the name of the docs you are syncing (i.e. ibc-go)."

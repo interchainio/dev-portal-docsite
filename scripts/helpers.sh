@@ -1,10 +1,23 @@
 #!/bin/bash
 # This file is sourced in from the others to provide helper functions.
 
-# replace replaces text in files at a given location. it has extra safety checks and makes it prettier
+# map of names -> their repo counterparts upstream
+# names must match the dsource-<name> variables found in the sync_*.sh scripts
+declare -A REPO_PAIRS
+REPO_PAIRS[cometbft]="https://github.com/cometbft/cometbft.git"
+REPO_PAIRS[ibc-go]="https://github.com/cosmos/ibc-go.git"
+REPO_PAIRS[onboarding]="https://github.com/rollchains/spawn.git"
+REPO_PAIRS[cosmos-sdk]="https://github.com/cosmos/cosmos-sdk-docs.git"
+REPO_PAIRS[cosmos-sdk-main]="https://github.com/cosmos/cosmos-sdk.git"
+
+#
+# 'replace' replaces text in files at a given location. it has extra safety checks and makes it prettier
+#
+# example usage:
+# - replace "./cosmos-sdk/docs" "https://raw.githubusercontent.com/cosmos/cosmos-sdk/main/docs" "./img/cosmos-sdk"
+# - replace "./cosmos-sdk/docs" "https://raw.githubusercontent.com/cosmos/cosmos-sdk/main/docs" "./img/cosmos-sdk" "ignore_this_dir/"
+#
 replace() {
-    # replace "./cosmos-sdk/docs" "https://raw.githubusercontent.com/cosmos/cosmos-sdk/main/docs" "./img/cosmos-sdk"
-    # replace "./cosmos-sdk/docs" "https://raw.githubusercontent.com/cosmos/cosmos-sdk/main/docs" "./img/cosmos-sdk" "ignore_this_dir/"
     location=$1
     old=$2
     new=$3
@@ -21,7 +34,6 @@ replace() {
         panic
     fi
 
-
     # see if $location is a directory or a file
     if [ ! -f $location ] && [ ! -d $location ]; then
         echo "File or directory '$location' does not exist."
@@ -36,7 +48,9 @@ replace() {
     fi
 }
 
+#
 # cp-improved is a wrapper around cp that creates the directory if it doesn't exist
+#
 cp-improved() {
     if [ ! -d "$2" ]; then
         mkdir -p "$2"
@@ -44,47 +58,49 @@ cp-improved() {
     cp -R "$1" "$2"
 }
 
+#
+# panic kills the script if something goes wrong
+#
 panic() {
     kill -INT $$
 }
 
 # --- Downloads ---
+
+#
+# __checkout_commit is a 'private' helper function that fetches the latest commit or a specific commit
+# depending on the input argument context.
+#
 __checkout_commit() {
     if [ -n "$2" ]; then
         echo "Checking out $1 commit $2"
         git -C $1 fetch --depth 1 origin $2
         git -C $1 reset --hard $2
+    else
+        echo "No commit specified for $1, pulling latest"
+        git -C $1 fetch --depth 1 origin
+        branch=$(git -C $1 rev-parse --abbrev-ref HEAD) # usually main, but just incase
+        git -C $1 reset --hard origin/$branch
     fi
 }
 
-# download_cometbft dsource-cometbft 978b84614992cb009b2e37500b6b3a598665a535
-download_cometbft() {
-    echo "Downloading cometbft at $1"
-    git -C "$1" pull || git clone --depth 1 https://github.com/cometbft/cometbft.git $1
-    __checkout_commit $1 $2
-}
 
-# download_ibcgo dsource-ibcgo <commit>
-download_ibcgo() {
-    echo "Downloading ibc-go at $1"
-    git -C "$1" pull || git clone --depth 1 https://github.com/cosmos/ibc-go.git $1
-    __checkout_commit $1 $2
-}
 
-download_onboarding() {
-    echo "Downloading onboarding at $1"
-    git -C "$1" pull || git clone --depth 1 https://github.com/rollchains/spawn.git $1
-    __checkout_commit $1 $2
-}
+# download_repo downloads a repo from git using the human name provided (such as ibc-go).
+# It then checkouts the commit or latest, depending on if the input arguments are provided
+# to do so.
+#
+# Example usage:
+# download_repo cometbft 00f7bda2ef730307370475d77d68685b9cb4dd01
+# download_repo cometbft # downloads latest
+download_repo() {
+    echo "Downloading $1"
+    if [ -z "${REPO_PAIRS[$1]}" ]; then
+        echo "Repo $1 not found in REPO_PAIRS"
+        panic
+    fi
 
-download_cosmossdk() {
-    echo "Downloading cosmos-sdk-docs at $1"
-    git -C "$1" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk-docs.git $1
-    __checkout_commit $1 $2
-}
-
-download_cosmossdk_main() {
-    echo "Downloading cosmos-sdk at $1"
-    git -C "$1" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk.git $1
-    __checkout_commit $1 $2
+    loc="dsource-$1"
+    git -C "$loc" pull || git clone --depth 1 ${REPO_PAIRS[$1]} "$loc"
+    __checkout_commit "$loc" "$2"
 }

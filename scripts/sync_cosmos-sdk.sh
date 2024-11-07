@@ -15,9 +15,6 @@ DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET
 MAIN_SDK_DIR_TARGET=dsource-cosmos-sdk-main
 MAIN_SDK_DIR=$CURRENT_DIR/$MAIN_SDK_DIR_TARGET
 
-# grab latest commit from latest.json in the root of the repo
-COSMOS_SDK_COMMIT=$(jq -r '.cosmossdk' <latest.json)
-
 main() {
     download_docs_source
 
@@ -38,8 +35,8 @@ unsafe_cleanup_cosmossdk() {
 
 
 download_docs_source() {
-    # Downloads documentation source for the repo
-    download_cosmossdk $DOCS_DIR $MAIN_SDK_DIR
+    download_repo "cosmos-sdk" "$(jq -r '.cosmossdk' <latest.json)"
+    download_repo "cosmos-sdk-main" "$(jq -r '.cosmossdkmain' <latest.json)"
 
     if [ -z "$DOCS_NAME" ]; then
         echo "DOCS_NAME is unset. Set it to the name of the docs you are syncing (i.e. cosmos-sdk)."

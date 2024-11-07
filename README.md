@@ -12,6 +12,17 @@ Simply `fork` this repository, then:
 $ npm install
 ```
 
+## Sync Documentation
+
+```bash
+# Grabs the latest upstream repo commits to your local instance
+$ make pull-latest
+
+# Synchronizes the latest.json commits (from the previous command)
+# to the documentation files.
+$ make sync-docs
+```
+
 ## Local Development
 
 ```
