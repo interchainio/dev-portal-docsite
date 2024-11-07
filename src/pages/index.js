@@ -41,8 +41,7 @@ function HeroSection() {
             </p>
             {/* Buttons */}
             <div className="mt-7 grid gap-3 w-full sm:inline-flex">
-              {/* TODO: move into the docs-interchain repo here */}
-              <Link to="https://rollchains.github.io/spawn/v0.50/">
+              <Link to={useBaseUrl("/onboarding")}>
                 <Button size="lg">Quick Start</Button>
                 {/* <Button variant={"outline"} size={"lg"}>
                   Contact sales team
