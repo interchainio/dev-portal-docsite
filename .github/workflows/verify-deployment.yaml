@@ -6,6 +6,8 @@ on:
 jobs:
   does-build:
     runs-on: ubuntu-latest
+    env:
+      THROW_ON_BROKEN_LINKS: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

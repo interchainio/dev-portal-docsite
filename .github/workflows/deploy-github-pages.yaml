@@ -16,6 +16,7 @@ jobs:
     name: deploy to gh-pages
     runs-on: ubuntu-latest
     env:
+      # THROW_ON_BROKEN_LINKS is not called here since verify-deployment uses it. So a PR would fail.
       IS_GH_PAGES: true
     steps:
       - uses: actions/checkout@v4

@@ -109,6 +109,9 @@ HACK_fix_relative_links() {
     # fix typo
     replace "./cosmos-sdk" "pacakges" "packages"
     replace "./cosmos-sdk_versioned_docs" "pacakges" "packages"
+
+    replace "./cosmos-sdk/docs/build" "github.com/cometbft/cometbft" "https://github.com/cometbft/cometbft"
+    replace "./cosmos-sdk_versioned_docs" "github.com/cometbft/cometbft" "https://github.com/cometbft/cometbft"
 }
 
 
