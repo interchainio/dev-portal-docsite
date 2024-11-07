@@ -49,42 +49,42 @@ panic() {
 }
 
 # --- Downloads ---
-
-download_cometbft() {
-    if [ -z "$1" ]; then
-        echo "download_cometbft requires 1 argument: download_cometbft \$DOCS_DIR_TARGET"
-        panic
+__checkout_commit() {
+    if [ -n "$2" ]; then
+        echo "Checking out $1 commit $2"
+        git -C $1 fetch --depth 1 origin $2
+        git -C $1 reset --hard $2
     fi
-    DOCS_DIR_TARGET=$1
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cometbft/cometbft.git $DOCS_DIR_TARGET
 }
 
+# download_cometbft dsource-cometbft 978b84614992cb009b2e37500b6b3a598665a535
+download_cometbft() {
+    echo "Downloading cometbft at $1"
+    git -C "$1" pull || git clone --depth 1 https://github.com/cometbft/cometbft.git $1
+    __checkout_commit $1 $2
+}
+
+# download_ibcgo dsource-ibcgo <commit>
 download_ibcgo() {
-    if [ -z "$1" ]; then
-        echo "download_ibcgo requires 1 argument: download_ibcgo \$DOCS_DIR_TARGET"
-        panic
-    fi
-    DOCS_DIR_TARGET=$1
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/ibc-go.git $DOCS_DIR_TARGET
+    echo "Downloading ibc-go at $1"
+    git -C "$1" pull || git clone --depth 1 https://github.com/cosmos/ibc-go.git $1
+    __checkout_commit $1 $2
 }
 
 download_onboarding() {
-    if [ -z "$1" ]; then
-        echo "download_onboarding requires 1 argument: download_onboarding \$DOCS_DIR_TARGET"
-        panic
-    fi
-    DOCS_DIR_TARGET=$1
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/rollchains/spawn.git $DOCS_DIR_TARGET
+    echo "Downloading onboarding at $1"
+    git -C "$1" pull || git clone --depth 1 https://github.com/rollchains/spawn.git $1
+    __checkout_commit $1 $2
 }
 
 download_cosmossdk() {
-    if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "download_cosmossdk requires 2 arguments: download_cosmossdk \$DOCS_DIR_TARGET \$MAIN_SDK_DIR_TARGET"
-        panic
-    fi
+    echo "Downloading cosmos-sdk-docs at $1"
+    git -C "$1" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk-docs.git $1
+    __checkout_commit $1 $2
+}
 
-    DOCS_DIR_TARGET=$1
-    MAIN_SDK_DIR_TARGET=$2
-    git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk-docs.git $DOCS_DIR_TARGET
-    git -C "$MAIN_SDK_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk.git $MAIN_SDK_DIR_TARGET
+download_cosmossdk_main() {
+    echo "Downloading cosmos-sdk at $1"
+    git -C "$1" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk.git $1
+    __checkout_commit $1 $2
 }

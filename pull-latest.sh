@@ -2,9 +2,11 @@
 
 # Syncs the latest commits from the upstream as a change file.
 
-source ./helpers.sh
+source ./scripts/helpers.sh
 
-# these names should match each sync_* file for simplicity
+# --- Download latest source ---
+
+# these names should match each sync_* file
 download_cometbft "dsource-cometbft"
 COMETBFT_COMMIT=$(git -C "dsource-cometbft" rev-parse HEAD)
 
@@ -14,12 +16,13 @@ IBC_GO_COMMIT=$(git -C "dsource-ibc-go" rev-parse HEAD)
 download_onboarding "dsource-onboarding"
 SPAWN_ONBOARDING_COMMIT=$(git -C "dsource-onboarding" rev-parse HEAD)
 
-download_cosmossdk "dsource-cosmos-sdk" "dsource-cosmos-sdk-main"
+download_cosmossdk "dsource-cosmos-sdk"
 COSMOS_SDK_COMMIT=$(git -C "dsource-cosmos-sdk" rev-parse HEAD)
+
+download_cosmossdk_main "dsource-cosmos-sdk-main"
 COSMOS_SDK_MAIN_COMMIT=$(git -C "dsource-cosmos-sdk-main" rev-parse HEAD)
 
-# ---
-
+# --- Write to file ---
 json_string=$(
   jq --null-input \
     --arg cometbft "$COMETBFT_COMMIT" \
@@ -30,5 +33,6 @@ json_string=$(
     '{cometbft: $cometbft, ibcgo: $ibcgo, onboarding: $onboarding, cosmossdk: $cosmossdk, cosmossdkmain: $cosmossdkmain}'
 )
 
-# jq pretty pint json_string -> latest.json
-echo $json_string | jq '.' >latest.json
+# save to file and print it out
+VALUE=`echo $json_string | jq '.'` && echo "$VALUE"
+echo "$VALUE" >latest.json

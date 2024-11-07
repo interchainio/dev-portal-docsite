@@ -14,6 +14,11 @@ serve-docs:
 dev-docs:
 	@npm run start
 
+## pull-latest: Pulls the latest changes from the remote repository
+.PHONY: pull-latest
+pull-latest:
+	@bash pull-latest.sh
+
 ## sync-docs: Grab the latest upstream documentation
 .PHONY: sync-docs
 sync-docs:

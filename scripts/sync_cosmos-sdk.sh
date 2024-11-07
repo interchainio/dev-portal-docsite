@@ -15,6 +15,9 @@ DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET
 MAIN_SDK_DIR_TARGET=dsource-cosmos-sdk-main
 MAIN_SDK_DIR=$CURRENT_DIR/$MAIN_SDK_DIR_TARGET
 
+# grab latest commit from latest.json in the root of the repo
+COSMOS_SDK_COMMIT=$(jq -r '.cosmossdk' <latest.json)
+
 main() {
     download_docs_source
 
