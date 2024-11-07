@@ -3,9 +3,10 @@
 # This is a hacky approach that grabs the docs from cometbft different branches, and formats them to be used in the docusaurus site.
 # The ideal approach would be to have them use docusaurus directly upstream, then we can just pull in. Similar to cosmos-sdk and IBC-Go.
 #
+set -e
 
 CURRENT_DIR=$(pwd)
-source ./helpers.sh
+source ./sciprts/helpers.sh
 DOCS_NAME=cometbft
 
 DOCS_DIR_TARGET=dsource-cometbft

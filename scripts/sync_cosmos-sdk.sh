@@ -4,6 +4,7 @@
 #
 # bash ./scripts/sync_cosmos-sdk.sh
 #
+set -e
 
 CURRENT_DIR=$(pwd)
 source "./scripts/helpers.sh"

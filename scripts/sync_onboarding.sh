@@ -1,7 +1,8 @@
 #!/bin/bash
+set -e
 
 CURRENT_DIR=$(pwd)
-source ./helpers.sh
+source ./scripts/helpers.sh
 DOCS_NAME=onboarding
 
 DOCS_DIR_TARGET=dsource-onboarding
