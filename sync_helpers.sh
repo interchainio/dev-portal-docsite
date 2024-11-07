@@ -35,6 +35,14 @@ replace() {
     fi
 }
 
+# cp-improved is a wrapper around cp that creates the directory if it doesn't exist
+cp-improved() {
+    if [ ! -d "$2" ]; then
+        mkdir -p "$2"
+    fi
+    cp -R "$1" "$2"
+}
+
 panic() {
     kill -INT $$
 }

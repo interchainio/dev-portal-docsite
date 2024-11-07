@@ -20,6 +20,8 @@ main() {
     copy_over_core
     update_sidebar
 
+    copy_over_main_repo_core
+
     HACK_fix_relative_links
 }
 
@@ -30,11 +32,10 @@ unsafe_cleanup_cosmossdk() {
     rm -rf ./$DOCS_DIR ./$MAIN_SDK_DIR ./${DOCS_NAME}_versions.json
 }
 
+
 download_docs_source() {
     # Downloads documentation source for the repo
     git -C "$DOCS_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk-docs.git $DOCS_DIR_TARGET
-
-    # TODO: ideally we get off of this? or put all in the main repo yea? talk w/ Julien.
     git -C "$MAIN_SDK_DIR_TARGET" pull || git clone --depth 1 https://github.com/cosmos/cosmos-sdk.git $MAIN_SDK_DIR_TARGET
 
     if [ -z "$DOCS_NAME" ]; then
@@ -45,27 +46,44 @@ download_docs_source() {
     mkdir -p ./$DOCS_NAME ./${DOCS_NAME}_versioned_sidebars ./${DOCS_NAME}_versioned_docs ./static/img/$DOCS_NAME/ ./src/components/$DOCS_NAME/
 }
 
-copy_over_core() {
-    # docs
-    cp -r $DOCS_DIR/docs ./cosmos-sdk
 
+copy_over_core() {
     # versioned docs
+    cp -r $DOCS_DIR/docs ./cosmos-sdk
     cp $DOCS_DIR/versions.json ./cosmos-sdk_versions.json
     cp -r $DOCS_DIR/versioned_sidebars/* ./cosmos-sdk_versioned_sidebars
     cp -r $DOCS_DIR/versioned_docs/* ./cosmos-sdk_versioned_docs
 
-    # paste proto into docs from main repo
-    cp -r $MAIN_SDK_DIR/proto ./cosmos-sdk_versioned_docs/version-0.47/build
-    cp -r $MAIN_SDK_DIR/proto ./cosmos-sdk_versioned_docs/version-0.50/build
-
-    # core
+    # core components
     cp -r $DOCS_DIR/src/components/* ./src/components/cosmos-sdk/
     cp $DOCS_DIR/sidebars.js ./cosmos-sdk/sidebars.js
 
-    # images
+    # core images
     cp -r $DOCS_DIR/static/img/* ./static/img/cosmos-sdk/
     replace "./src/components/cosmos-sdk" "static/img/" "static/img/cosmos-sdk/"
 }
+
+copy_over_main_repo_core() {
+    MAIN_DIRS=("./cosmos-sdk/docs" "./cosmos-sdk_versioned_docs/version-0.52" "./cosmos-sdk_versioned_docs/version-0.50")
+    for dir in "${MAIN_DIRS[@]}"; do
+        cp -r $MAIN_SDK_DIR/docs/architecture $dir
+        cp -r $MAIN_SDK_DIR/docs/rfc $dir
+        cp -r $MAIN_SDK_DIR/docs/user/run-node $dir/build
+    done
+
+    # next
+    cp-improved $MAIN_SDK_DIR/x/bank/v2/README.md ./cosmos-sdk/docs/build/modules/bank/v2
+
+    # v0.52
+    cp-improved $MAIN_SDK_DIR/simapp/CHANGELOG.md ./cosmos-sdk_versioned_docs/version-0.52/build/migrations/simapp
+    cp-improved $MAIN_SDK_DIR/x/tx/README.md ./cosmos-sdk_versioned_docs/version-0.52/build/modules/tx
+    cp-improved $MAIN_SDK_DIR/x/bank/v2/README.md ./cosmos-sdk_versioned_docs/version-0.52/build/modules/bank/v2
+
+    # v0.50
+    touch ./cosmos-sdk_versioned_docs/version-0.50/build/modules/README.md # TODO: fix upstream
+    touch ./cosmos-sdk_versioned_docs/version-0.50/build/abci/01-app-go-v2.md # TODO: fix upstream
+}
+
 
 update_sidebar() {
     # modify the sidebar dirNames -> match the new location format (due to multiple nested versions)
@@ -76,40 +94,20 @@ update_sidebar() {
     replace "./cosmos-sdk/sidebars.js" '"tutorials"' '"docs/tutorials"'
 }
 
+
 # TODO: ideally we do not have to do this, but some links are broken upstream.
 HACK_fix_relative_links() {
-    # cosmos-sdk nested docs, pull in as references
-    BASE_DIR=./cosmos-sdk/docs/build/modules/bank/v2; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/bank/v2/README.md $BASE_DIR
-    BASE_DIR=./cosmos-sdk/docs/build/modules/tx; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/tx/README.md $BASE_DIR
-    BASE_DIR=./cosmos-sdk/docs/build/modules/validate; mkdir -p $BASE_DIR; cp $MAIN_SDK_DIR/x/validate/README.md $BASE_DIR
-
-    # This is just cosmetic so the docs engine doesn't throw a 'Docs markdown link couldn't be resolved' error fiel filenames in backticks.
-    # e.g. `CHANGELOG.md`.
+    # This is just cosmetic so the docs engine doesn't throw a 'Docs markdown link couldn't be resolved' error for filenames in backticks.
+    # e.g. `CHANGELOG.md`. (Unless we copy these over to this new docs site location, which imo is better to do)
     replace "./cosmos-sdk" "\`CHANGELOG.md\`" "CHANGELOG"
     replace "./cosmos-sdk_versioned_docs" "\`CHANGELOG.md\`" "CHANGELOG"
-    # `UPGRADING.md`
+    # # `UPGRADING.md`
     replace "./cosmos-sdk" "\`UPGRADING.md\`" "UPGRADING"
     replace "./cosmos-sdk_versioned_docs" "\`UPGRADING.md\`" "UPGRADING"
 
     # fix typo
-    replace "./cosmos-sdk" "../pacakges" "../packages"
-    replace "./cosmos-sdk/docs/user" "[CometBFT](github.com/cometbft/cometbft)" "[CometBFT](https://github.com/cometbft/cometbft)"
-    # replace "./cosmos-sdk_versioned_docs/version-0.47/user/run-node/06-run-production.md" "[CometBFT](github.com/cometbft/cometbft)" "[CometBFT](https://github.com/cometbft/cometbft)"
-
-    # bad links upstream
-    replace "./cosmos-sdk_versioned_docs" "01-understanding-front-running" "./01-understanding-frontrunning.md"
-    replace "./cosmos-sdk_versioned_docs" "02-mitigating-front-running-with-vote-extensions" "./02-mitigating-front-running-with-vote-extensions.md.md"
-    replace "./cosmos-sdk_versioned_docs" "03-demo-of-mitigating-front-running" "./03-demo-of-mitigating-front-running.md"
-
-
-    # this excludes a dir because of bad relative paths used in only 1 location.
-    replace "./cosmos-sdk_versioned_docs" "\./01-app-go-v2.md" "../../build/building-apps/01-app-go-v2.md" "building-apps/"
-    replace "./cosmos-sdk" "../run-node" "../../user/run-node/"
-
-    # TODO: is this the correct location of this? the latest docs?
-    OLD_PATH="../../architecture/"; NEW_PATH="../../build/architecture/"
-    replace "./cosmos-sdk" "$OLD_PATH" "$NEW_PATH"
-    replace "./cosmos-sdk_versioned_docs" "$OLD_PATH" "$NEW_PATH"
+    replace "./cosmos-sdk" "pacakges" "packages"
+    replace "./cosmos-sdk_versioned_docs" "pacakges" "packages"
 }
 
 
