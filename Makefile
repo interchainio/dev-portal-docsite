@@ -13,10 +13,10 @@ serve-docs:
 dev-docs:
 	@npm run start
 
-## pull-latest: Pulls the latest commits from upstream
-.PHONY: pull-latest
-pull-latest:
-	@bash pull-latest.sh
+## latest-commits: Pulls the latest commits from upstream
+.PHONY: latest-commits
+latest-commits:
+	@bash ./scripts/sync-latest-commits.sh
 
 ## sync-docs: Grab the latest upstream documentation
 .PHONY: sync-docs
