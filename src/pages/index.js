@@ -6,6 +6,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import Button from "@site/src/components/button";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export default function Home() {
   return (
@@ -57,22 +58,22 @@ function HeroSection() {
                 {/* Review */}
                 <img
                   className="h-[55px] dark:invert"
-                  src="/img/chains/binance.svg"
+                  src={useBaseUrl("/img/chains/binance.svg")}
                   alt="Binance Chain"
                 />
                 <img
                   className="h-[30px] dark:invert dark:grayscale"
-                  src="/img/chains/dydx_colored.svg"
+                  src={useBaseUrl("/img/chains/dydx_colored.svg")}
                   alt="Dydx"
                 />
                 <img
                   className="h-[55px] dark:invert"
-                  src="/img/chains/crypto-com.svg"
+                  src={useBaseUrl("/img/chains/crypto-com.svg")}
                   alt="Crypto.com"
                 />
                 <img
                   className="h-[30px] dark:invert"
-                  src="/img/chains/celestia_colored.svg"
+                  src={useBaseUrl("/img/chains/celestia_colored.svg")}
                   alt="Celestia"
                 />
                 {/* End Review */}
@@ -83,12 +84,12 @@ function HeroSection() {
           <div className="ms-4 hidden md:block relative">
             <img
               className="dark:hidden w-full rounded-md"
-              src="/img/squares1-black.svg"
+              src={useBaseUrl("/img/squares1-black.svg")}
               alt="hero"
             />
             <img
               className="hidden dark:block w-full rounded-md"
-              src="/img/squares1-white.svg"
+              src={useBaseUrl("/img/squares1-white.svg")}
               alt="hero"
             />
           </div>
