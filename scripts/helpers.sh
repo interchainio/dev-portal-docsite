@@ -2,7 +2,7 @@
 # This file is sourced in from the others to provide helper functions.
 
 # map of names -> their repo counterparts upstream
-# names must match the dsource-<name> variables found in the sync_*.sh scripts
+# !IMPORTANT: names must match the dsource-<name> variables found in the sync_*.sh scripts
 declare -A REPO_PAIRS
 REPO_PAIRS[cometbft]="https://github.com/cometbft/cometbft.git"
 REPO_PAIRS[ibc-go]="https://github.com/cosmos/ibc-go.git"

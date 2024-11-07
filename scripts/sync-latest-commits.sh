@@ -7,7 +7,6 @@ source ./scripts/helpers.sh
 
 # --- Download latest source ---
 
-# these names should match each sync_* file
 download_repo "cometbft"
 COMETBFT_COMMIT=$(git -C "dsource-cometbft" rev-parse HEAD)
 
@@ -23,7 +22,7 @@ COSMOS_SDK_COMMIT=$(git -C "dsource-cosmos-sdk" rev-parse HEAD)
 download_repo "cosmos-sdk-main"
 COSMOS_SDK_MAIN_COMMIT=$(git -C "dsource-cosmos-sdk-main" rev-parse HEAD)
 
-# --- Write to file ---
+# --- Write and print output ---
 json_string=$(
   jq --null-input \
     --arg cometbft "$COMETBFT_COMMIT" \
@@ -34,6 +33,5 @@ json_string=$(
     '{cometbft: $cometbft, ibcgo: $ibcgo, onboarding: $onboarding, cosmossdk: $cosmossdk, cosmossdkmain: $cosmossdkmain}'
 )
 
-# save to file and print it out
 VALUE=`echo $json_string | jq '.'` && echo "$VALUE"
 echo "$VALUE" >latest.json

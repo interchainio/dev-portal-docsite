@@ -6,7 +6,7 @@
 set -e
 
 CURRENT_DIR=$(pwd)
-source ./sciprts/helpers.sh
+source ./scripts/helpers.sh
 DOCS_NAME=cometbft
 
 DOCS_DIR_TARGET=dsource-cometbft
