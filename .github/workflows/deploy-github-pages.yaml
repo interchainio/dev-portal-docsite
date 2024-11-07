@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: gh pages deploy
 
 permissions:
   contents: write
@@ -13,7 +13,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to GitHub Pages
+    name: deploy to gh-pages
     runs-on: ubuntu-latest
     env:
       IS_GH_PAGES: true
