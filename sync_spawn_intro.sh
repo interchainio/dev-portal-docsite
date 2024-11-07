@@ -16,7 +16,7 @@ main() {
 
     copy_over_core
 
-    # fix_references
+    fix_references
     # fix_components
 }
 
@@ -37,9 +37,8 @@ download_docs_source() {
         panic
     fi
 
-    mkdir -p ./$DOCS_NAME ./${DOCS_NAME}_versioned_sidebars ./${DOCS_NAME}_versioned_docs ./static/img/$DOCS_NAME/ ./src/components/$DOCS_NAME/
+    mkdir -p ./$DOCS_NAME ./${DOCS_NAME}_versioned_sidebars ./${DOCS_NAME}_versioned_docs ./static/img/$DOCS_NAME/
 }
-
 
 copy_over_core() {
     # docs
@@ -55,9 +54,14 @@ copy_over_core() {
 
     # images
     cp -r $DOCS_DIR/static/img/* ./static/img/${DOCS_NAME}/
+}
 
+fix_references() {
     # update component import references
-    replace "./src/components/${DOCS_NAME}" "static/img/" "static/img/${DOCS_NAME}/"
+    # replace "./src/components/${DOCS_NAME}" "static/img/" "static/img/${DOCS_NAME}/"
+
+    replace "./${DOCS_NAME}_versioned_docs" '<!-- markdown-link-check-disable -->' ''
+    replace "./${DOCS_NAME}_versioned_docs" '<!-- markdown-link-check-enable -->' ''
 }
 
 # == MAIN ==
