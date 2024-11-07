@@ -64,32 +64,24 @@ copy_over_core() {
 }
 
 copy_over_main_repo_core() {
-    # architecture from main
-    cp -r $MAIN_SDK_DIR/docs/architecture ./cosmos-sdk/docs
-    cp -r $MAIN_SDK_DIR/docs/rfc ./cosmos-sdk/docs
-    cp -r $MAIN_SDK_DIR/docs/user/run-node ./cosmos-sdk/docs/build
+    MAIN_DIRS=("./cosmos-sdk/docs" "./cosmos-sdk_versioned_docs/version-0.52" "./cosmos-sdk_versioned_docs/version-0.50")
+    for dir in "${MAIN_DIRS[@]}"; do
+        cp -r $MAIN_SDK_DIR/docs/architecture $dir
+        cp -r $MAIN_SDK_DIR/docs/rfc $dir
+        cp -r $MAIN_SDK_DIR/docs/user/run-node $dir/build
+    done
+
+    # next
     cp-improved $MAIN_SDK_DIR/x/bank/v2/README.md ./cosmos-sdk/docs/build/modules/bank/v2
 
     # v0.52
-    # TODO: make these so we iterate all versioned docs
-    cp -r $MAIN_SDK_DIR/docs/architecture ./cosmos-sdk_versioned_docs/version-0.52
-    cp -r $MAIN_SDK_DIR/docs/rfc ./cosmos-sdk_versioned_docs/version-0.52
-    cp -r $MAIN_SDK_DIR/docs/user/run-node ./cosmos-sdk_versioned_docs/version-0.52/build
     cp-improved $MAIN_SDK_DIR/simapp/CHANGELOG.md ./cosmos-sdk_versioned_docs/version-0.52/build/migrations/simapp
     cp-improved $MAIN_SDK_DIR/x/tx/README.md ./cosmos-sdk_versioned_docs/version-0.52/build/modules/tx
     cp-improved $MAIN_SDK_DIR/x/bank/v2/README.md ./cosmos-sdk_versioned_docs/version-0.52/build/modules/bank/v2
 
     # v0.50
-    cp -r $MAIN_SDK_DIR/docs/architecture ./cosmos-sdk_versioned_docs/version-0.50
-    cp -r $MAIN_SDK_DIR/docs/rfc ./cosmos-sdk_versioned_docs/version-0.50
-    cp -r $MAIN_SDK_DIR/docs/user/run-node ./cosmos-sdk_versioned_docs/version-0.50/build
     touch ./cosmos-sdk_versioned_docs/version-0.50/build/modules/README.md # TODO: fix upstream
     touch ./cosmos-sdk_versioned_docs/version-0.50/build/abci/01-app-go-v2.md # TODO: fix upstream
-
-    # v0.47
-    # cp -r $MAIN_SDK_DIR/docs/architecture ./cosmos-sdk_versioned_docs/version-0.47
-    # cp -r $MAIN_SDK_DIR/docs/rfc ./cosmos-sdk_versioned_docs/version-0.47
-    # cp -r $MAIN_SDK_DIR/docs/user/run-node ./cosmos-sdk_versioned_docs/version-0.47/build
 }
 
 
