@@ -45,13 +45,8 @@ const config = {
       "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          id: 'default',
-          // no need for this to ever be used, but it's required. So an impossible path is used.
-          routeBasePath: "ignoredocsc07eb9f306819ce234abcc86ee12e192",
-          sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: `https://github.com/${OrgName}/${ProjectName}`,
-        },
+        // removes required default docs/ folder for the project. This project uses nested so it is not required.
+        docs: false,
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
