@@ -1,5 +1,4 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
@@ -19,35 +18,35 @@ function mapValidPluginsToDropDownVersions(docs) {
   });
 }
 
+const OrgName = "interchainio";
+const ProjectName = "dev-portal-docsite";
+
+// The default slug URL for the docs site. Github Pages requires a base URL to be set
+// to the name of the repository. The action sets IS_GH_PAGES to true if deploying to Github Pages.
 var baseURL = "/"
 if (process.env.IS_GH_PAGES) {
-  baseURL = "/dev-portal-docsite/"
+  baseURL = `/${ProjectName}/`
 }
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Interchain Stack",
   tagline: "Your gateway into your Interchain future",
-  url: "https://docs-interchain.io", // TODO:
+  url: "https://docs-interchain.io", // TODO: docs.interchain.io
   baseUrl: baseURL,
   onBrokenLinks: "warn", // TODO: throw for prod
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "interchainio", // Usually your GitHub org/user name.
-  projectName: "dev-portal-docsite", // Usually your repo name.
+  organizationName: OrgName,
+  projectName: ProjectName,
 
   presets: [
     [
       "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          // id: 'docs', // omitted => default instance
-          routeBasePath: "docs", // TODO: change this to be onboarding?
-          sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          editUrl: "https://github.com/interchainio/dev-portal-docsite/",
-        },
+        // removes required default docs/ folder for the project. This project uses nested so it is not required.
+        docs: false,
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
@@ -112,13 +111,12 @@ const config = {
           href: "/",
         },
         items: [
-          // Onboarding documentation? (i.e. Spawn, or just quick start guides)
-          // {
-          //   type: "doc",
-          //   position: "left",
-          //   docId: "intro",
-          //   label: "Onboard",
-          // },
+          // new items require updating:
+          {
+            position: "left",
+            to: "/onboarding",
+            label: "Onboarding",
+          },
           {
             to: "/ibc-go", // To highlight the navbar item, you must link to a document, not a top-level directory
             position: "left",
@@ -150,7 +148,7 @@ const config = {
           // Version drop downs are merged via the theme/NavBarItem/DocsVersionDropdownNavbarItem.js
           ...mapValidPluginsToDropDownVersions(validDocs),
           {
-            href: "https://github.com/interchainio/dev-portal-docsite/",
+            href: `https://github.com/${OrgName}/${ProjectName}`,
             html: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="github-icon">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.300049C5.4 0.300049 0 5.70005 0 12.3001C0 17.6001 3.4 22.1001 8.2 23.7001C8.8 23.8001 9 23.4001 9 23.1001C9 22.8001 9 22.1001 9 21.1001C5.7 21.8001 5 19.5001 5 19.5001C4.5 18.1001 3.7 17.7001 3.7 17.7001C2.5 17.0001 3.7 17.0001 3.7 17.0001C4.9 17.1001 5.5 18.2001 5.5 18.2001C6.6 20.0001 8.3 19.5001 9 19.2001C9.1 18.4001 9.4 17.9001 9.8 17.6001C7.1 17.3001 4.3 16.3001 4.3 11.7001C4.3 10.4001 4.8 9.30005 5.5 8.50005C5.5 8.10005 5 6.90005 5.7 5.30005C5.7 5.30005 6.7 5.00005 9 6.50005C10 6.20005 11 6.10005 12 6.10005C13 6.10005 14 6.20005 15 6.50005C17.3 4.90005 18.3 5.30005 18.3 5.30005C19 7.00005 18.5 8.20005 18.4 8.50005C19.2 9.30005 19.6 10.4001 19.6 11.7001C19.6 16.3001 16.8 17.3001 14.1 17.6001C14.5 18.0001 14.9 18.7001 14.9 19.8001C14.9 21.4001 14.9 22.7001 14.9 23.1001C14.9 23.4001 15.1 23.8001 15.7 23.7001C20.5 22.1001 23.9 17.6001 23.9 12.3001C24 5.70005 18.6 0.300049 12 0.300049Z" fill="currentColor"/>
             </svg>

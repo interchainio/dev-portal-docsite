@@ -19,6 +19,7 @@ dev-docs:
 sync-docs:
 	@bash sync_cosmos-sdk.sh
 	@bash sync_ibc.sh
+	@bash sync_onboarding.sh
 
 .PHONY: help
 help: Makefile
