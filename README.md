@@ -16,7 +16,7 @@ $ npm install
 
 ```bash
 # Grabs the latest upstream repo commits to your local instance
-$ make pull-latest
+$ make latest-commits
 
 # Synchronizes the latest.json commits (from the previous command)
 # to the documentation files.
