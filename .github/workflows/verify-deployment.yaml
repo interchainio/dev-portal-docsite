@@ -9,7 +9,19 @@ jobs:
     env:
       THROW_ON_BROKEN_LINKS: true
     steps:
+      # https://github.com/tats-u/docuactions-cache/blob/main/action.yml
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/.docusaurus
+            ${{ github.workspace }}/**/.cache
+          key: |
+            ${{ runner.os }}-docusaurus-${{ hashFiles('**/package-lock.json', '**/npm-shrinkwrap.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-docusaurus-${{ hashFiles('**/package-lock.json', '**/npm-shrinkwrap.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
+
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 18
