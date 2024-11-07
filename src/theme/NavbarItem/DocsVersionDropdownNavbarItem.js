@@ -44,9 +44,6 @@ export default function DocsVersionDropdownNavbarItemWrapper(props) {
     return null
   }
 
-  // print out props
-  console.log(docsPluginId, props)
-
   return (
     <>
       <DocsVersionDropdownNavbarItem {...props} />
