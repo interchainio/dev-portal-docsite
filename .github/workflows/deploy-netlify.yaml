@@ -6,7 +6,7 @@ permissions:
   pull-requests: write
 
 on:
-  # TODO: add pull requests preview support
+  pull_request:
   push:
     branches:
       - main
@@ -46,23 +46,25 @@ jobs:
     - name: Install Dependencies
       run: npm ci
 
-    - name: 🤔 Sync latest Upstream
+    - name: Sync latest Upstream
       run: make sync-docs
 
     - name: Build website 🔨
       run: make build-docs
+
+    # Sets the branch name as environment variable (non prod only)
+    - uses: nelonoel/branch-name@v1.0.1
 
     # if the branch is not main, then its a deploy to non prod, set DEPLOY_TO_PROD to false
     - name: Set Deploy to Prod
       run: |
         if [ "${{ env.BRANCH_NAME }}" != "main" ]; then
           echo "Deploying to non-prod environment"
-          echo "Setting DEPLOY_TO_PROD to false"
           echo "DEPLOY_TO_PROD=false" >> $GITHUB_ENV
         else
-          echo "Deploying to prod environment"
-          echo "Setting DEPLOY_TO_PROD to true"
+          echo "Deploying to prod environment, no deploy alias"
           echo "DEPLOY_TO_PROD=true" >> $GITHUB_ENV
+          echo "BRANCH_NAME=" >> $GITHUB_ENV
         fi
 
     # https://app.netlify.com/user/applications#personal-access-tokens
@@ -77,3 +79,4 @@ jobs:
         NETLIFY_DEPLOY_TO_PROD: ${{ env.DEPLOY_TO_PROD }}
         install_command: "echo Skipping installing the dependencies"
         build_command: "echo Skipping building the web files"
+        deploy_alias: ${{ env.BRANCH_NAME }}
