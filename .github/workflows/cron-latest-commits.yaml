@@ -23,6 +23,13 @@ jobs:
         # From verify deployments workflow
         - uses: actions/checkout@v4
 
+        - name: Check for PAT
+          run: |
+            if [ -z "${{ secrets.GIT_WORKFLOW_PAT }}" ]; then
+                echo "Please set the GIT_WORKFLOW_PAT secret to support PR workflow runs on generate"
+                exit 1
+            fi
+
         - name: grab latest commits
           run: make latest-commits
 
@@ -35,6 +42,10 @@ jobs:
             commit-message: "chore: sync latest"
             delete-branch: true
             signoff: false
+            # https://github.com/orgs/community/discussions/55906#discussioncomment-5946239
+            # https://github.com/settings/personal-access-tokens/new
+            # To verify the PR, we must set a PAT token in the secrets
+            token: ${{ secrets.GIT_WORKFLOW_PAT }}
             # https://github.com/interchainio/dev-portal-docsite/issues/labels
             labels: |
                 automated pr
@@ -43,16 +54,3 @@ jobs:
             reviewers: reecepbcups
             body: |
                 Syncing the latest file commits from upstream.
-
-        # TODO: this is a duplicate from verify-deployment, in the future migrate to reuseable action w/ workflow_call inputs
-        - uses: actions/setup-node@v4
-          with:
-            node-version: 18
-            cache: npm
-            cache-dependency-path: package-lock.json
-
-        - name: pull docs from current latest
-          run: make sync-docs
-
-        - name: build-docs w/o errors
-          run: make build-docs
