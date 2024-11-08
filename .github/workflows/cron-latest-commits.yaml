@@ -43,3 +43,9 @@ jobs:
             reviewers: reecepbcups
             body: |
                 Syncing the latest file commits from upstream.
+
+        - name: Rerun validation checks
+          uses: shqear93/rerun-checks@v2
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            check-names: 'does-build' # ensure it builds
