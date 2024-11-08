@@ -1,0 +1,45 @@
+name: Cron File Sync
+
+on:
+    workflow_dispatch:
+    schedule:
+      - cron: "0 12 */2 * *"  # noon every other day
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  BRANCH: "sync-${{ github.sha }}"
+
+jobs:
+  # This job just grabs the latest commits (if any) and creates a PR with the changes
+  # if there are no changes, no PR
+  # Another action will handle the PR verification for builds
+  file-sync:
+    runs-on: ubuntu-latest
+    steps:
+        # TODO: switch to shared composit actions in the future?
+        # From verify deployments workflow
+        - uses: actions/checkout@v4
+
+        - name: grab latest commits
+          run: make latest-commits
+
+        # exits if there are no changes
+        - uses: peter-evans/create-pull-request@v7.0.5
+          with:
+            base: main
+            branch: ${{ env.BRANCH }}
+            title: "chore: update upstream docs"
+            commit-message: "chore: sync latest"
+            delete-branch: true
+            signoff: false
+            # https://github.com/interchainio/dev-portal-docsite/issues/labels
+            labels: |
+                automated pr
+            # TODO: codeowners/group in the future w/ team-reviewers
+            assignees: reecepbcups
+            reviewers: reecepbcups
+            body: |
+                Syncing the latest file commits from upstream.

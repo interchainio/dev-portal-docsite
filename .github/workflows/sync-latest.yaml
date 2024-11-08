@@ -1,6 +1,0 @@
-# Cron job to sync the latest files and create a new PR
-# every M and Thursday day at XXX
-# - make latest-commits
-# - if diff, open PR
-# - no dif, return early
-# - tag codeowner or someone
