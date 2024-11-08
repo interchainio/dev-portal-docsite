@@ -50,7 +50,7 @@ jobs:
             labels: |
                 automated pr
             # TODO: codeowners/group in the future w/ team-reviewers
-            assignees: reecepbcups
-            reviewers: reecepbcups
+            # assignees: reecepbcups
+            # reviewers: reecepbcups
             body: |
                 Syncing the latest file commits from upstream.
