@@ -44,8 +44,15 @@ jobs:
             body: |
                 Syncing the latest file commits from upstream.
 
-        - name: Rerun validation checks
-          uses: shqear93/rerun-checks@v2
+        # TODO: this is a duplicate from verify-deployment, in the future migrate to reuseable action w/ workflow_call inputs
+        - uses: actions/setup-node@v4
           with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            check-names: 'does-build' # ensure it builds
+            node-version: 18
+            cache: npm
+            cache-dependency-path: package-lock.json
+
+        - name: pull docs from current latest
+          run: make sync-docs
+
+        - name: build-docs w/o errors
+          run: make build-docs
