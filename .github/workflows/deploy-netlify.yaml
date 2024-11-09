@@ -1,15 +1,14 @@
 name: 'netlify deploy'
 
-# # Disable `Pretty URLs` (Site Confiuration > Build & Deploy > Post Processing > Pretty URLs)
-
-permissions:
-  pull-requests: write
+# Disable `Pretty URLs` (Site Confiuration > Build & Deploy > Post Processing > Pretty URLs)
 
 on:
-  # TODO: add pull requests preview support
   push:
     branches:
       - main
+
+permissions:
+  pull-requests: write
 
 env:
   BRANCH_NAME: ${{ github.ref_name }}
@@ -19,7 +18,6 @@ jobs:
     name: 'Deploy to Netlify'
     runs-on: ubuntu-latest
     steps:
-    # ensure the secrets are set, if not, error
     - name: Check Secrets
       run: |
         if [ -z "${{ secrets.NETLIFY_SITE_ID }}" ]; then
@@ -46,7 +44,7 @@ jobs:
     - name: Install Dependencies
       run: npm ci
 
-    - name: 🤔 Sync latest Upstream
+    - name: Sync latest Upstream
       run: make sync-docs
 
     - name: Build website 🔨
@@ -57,11 +55,9 @@ jobs:
       run: |
         if [ "${{ env.BRANCH_NAME }}" != "main" ]; then
           echo "Deploying to non-prod environment"
-          echo "Setting DEPLOY_TO_PROD to false"
           echo "DEPLOY_TO_PROD=false" >> $GITHUB_ENV
         else
-          echo "Deploying to prod environment"
-          echo "Setting DEPLOY_TO_PROD to true"
+          echo "Deploying to prod environment, no deploy alias"
           echo "DEPLOY_TO_PROD=true" >> $GITHUB_ENV
         fi
 
