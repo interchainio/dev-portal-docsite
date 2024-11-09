@@ -30,6 +30,14 @@ $ npm start
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
 ```bash
+$ npm run build:local
+```
+
+## Build with Latest
+
+This command runs package install, doc sync, and the build in 1 command. It is mainly used for upstream CI/CD with deployments.
+
+```bash
 $ npm run build
 ```
 
