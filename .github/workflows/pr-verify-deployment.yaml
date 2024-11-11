@@ -19,9 +19,6 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Set git config for pull.ff only
-        run: git config --global pull.ff only
-
       - name: Clear old docs references
         run: make fresh
 
