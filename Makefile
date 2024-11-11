@@ -18,6 +18,16 @@ dev-docs:
 latest-commits:
 	@bash ./scripts/sync-latest-commits.sh
 
+## fresh: Clear the current base doc source files for upstream repos
+# this is used for deployments to main to not hit divergent branch issues.
+.PHONY: fresh
+fresh:
+	rm -rf ./dsource-cosmos-sdk/
+	rm -rf ./dsource-cosmos-sdk-main/
+	rm -rf ./dsource-ibc-go/
+	rm -rf ./dsource-onboarding/
+	rm -rf ./dsource-cometbft/
+
 ## sync-docs: Grab the latest upstream documentation
 .PHONY: sync-docs
 sync-docs:

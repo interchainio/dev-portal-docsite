@@ -27,6 +27,9 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
+      - name: Clear old docs references
+        run: make fresh
+
       - name: 🤔 Sync latest Upstream
         run: make sync-docs
 
