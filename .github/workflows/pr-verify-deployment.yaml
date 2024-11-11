@@ -14,7 +14,7 @@ jobs:
       # THROW_ON_BROKEN_LINKS: true # TODO:
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4.0.4
         with:
           node-version: 18
           cache: npm
