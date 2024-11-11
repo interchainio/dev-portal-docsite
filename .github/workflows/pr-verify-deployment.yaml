@@ -18,7 +18,10 @@ jobs:
         with:
           node-version: 18
           cache: npm
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: package-lock.jso
+
+      - name: Set git config for pull.ff only
+        run: git config --global pull.ff only
 
       - name: Clear old docs references
         run: make fresh
