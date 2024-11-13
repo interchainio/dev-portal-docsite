@@ -19,9 +19,6 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Clear old docs references
-        run: make fresh
-
       - name: pull docs from current latest
         run: make sync-docs
 
