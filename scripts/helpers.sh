@@ -101,6 +101,11 @@ download_repo() {
     fi
 
     loc="dsource-$1"
-    git -C "$loc" pull || git clone --depth 1 ${REPO_PAIRS[$1]} "$loc"
+
+    if [ ! -d "$loc" ]; then
+        # no need to `git -C "$loc" pull` since the checkout commit will get us where we need to be
+        # else `You have divergent branches` occurs
+        git clone --depth 1 ${REPO_PAIRS[$1]} "$loc"
+    fi
     __checkout_commit "$loc" "$2"
 }

@@ -22,11 +22,7 @@ latest-commits:
 # this is used for deployments to main to not hit divergent branch issues.
 .PHONY: fresh
 fresh:
-	rm -rf ./dsource-cosmos-sdk/
-	rm -rf ./dsource-cosmos-sdk-main/
-	rm -rf ./dsource-ibc-go/
-	rm -rf ./dsource-onboarding/
-	rm -rf ./dsource-cometbft/
+	rm -rf ./dsource-*/
 
 ## sync-docs: Grab the latest upstream documentation
 .PHONY: sync-docs
