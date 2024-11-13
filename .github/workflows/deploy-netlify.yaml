@@ -44,11 +44,8 @@ jobs:
     - name: Install Dependencies
       run: npm ci
 
-    - name: Set git config for pull.ff only
-      run: git config --global pull.ff only
-
-    - name: Clear old docs references
-      run: make fresh
+    # - name: Clear old docs references
+    #   run: make fresh
 
     - name: Sync latest Upstream
       run: make sync-docs
