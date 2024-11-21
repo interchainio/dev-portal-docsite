@@ -25,6 +25,7 @@ fresh:
 	rm -rf ./dsource-*/
 
 ## sync-docs: Grab the latest upstream documentation
+# If using macos `brew install bash` to update to > v4
 .PHONY: sync-docs
 sync-docs:
 	@bash ./scripts/sync_cosmos-sdk.sh

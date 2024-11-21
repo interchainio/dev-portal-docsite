@@ -15,6 +15,10 @@ DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET
 # CMBFT_VERSIONS=("v1.x" "v0.34.x" "v0.37.x" "v0.38.x")
 CMBFT_VERSIONS=("v1.x")
 
+# required for macos or you get 'sed: RE error: illegal byte sequence'
+LC_CTYPE=C
+LANG=C
+
 main() {
     # pre req: we need multiple branches from the cometbft repo, but are cloning a shallow copy.
     # this sets our config so we don;'t get missing matching files for fetched branches'

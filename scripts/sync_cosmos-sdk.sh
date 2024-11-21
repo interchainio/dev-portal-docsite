@@ -16,6 +16,10 @@ DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET
 MAIN_SDK_DIR_TARGET=dsource-cosmos-sdk-main
 MAIN_SDK_DIR=$CURRENT_DIR/$MAIN_SDK_DIR_TARGET
 
+# required for macos or you get 'sed: RE error: illegal byte sequence'
+LC_CTYPE=C
+LANG=C
+
 main() {
     download_docs_source
 
