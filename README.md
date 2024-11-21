@@ -9,6 +9,11 @@ An aggregation of Interchain stack components documentation in 1 place. <https:/
 Simply `fork` this repository, then:
 
 ```bash
+# MacOS: Install Homebrew & Update bash to version >= 4
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# brew install bash
+# bash --version
+
 # Installs packages
 $ npm install
 
