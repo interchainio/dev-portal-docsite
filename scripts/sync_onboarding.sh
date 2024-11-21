@@ -8,6 +8,9 @@ DOCS_NAME=onboarding
 DOCS_DIR_TARGET=dsource-onboarding
 DOCS_DIR=$CURRENT_DIR/$DOCS_DIR_TARGET/docs
 
+# required for macos or you get 'sed: RE error: illegal byte sequence'
+LC_ALL=C && LC_CTYPE=C && LANG=C
+
 main() {
     download_docs_source
 
