@@ -74,14 +74,14 @@ fix_references() {
 
     FILES=`find ./ibc-go_versioned_docs -type f -name "*.md"`
     for file in $FILES; do
-        sed -i "s#(/architecture/#(/ibc-go/architecture/#g" $file
-        sed -i "s#(/events/events#(/ibc-go/events/#g" $file
+        sed -i -e "s#(/architecture/#(/ibc-go/architecture/#g" $file
+        sed -i -e "s#(/events/events#(/ibc-go/events/#g" $file
     done
 
     FILES=`find ./ibc-go -type f -name "*.md"`
     for file in $FILES; do
-        sed -i "s#(/architecture/#(/ibc-go/architecture/#g" $file
-        sed -i "s#(/events/events#(/ibc-go/events/#g" $file
+        sed -i -e "s#(/architecture/#(/ibc-go/architecture/#g" $file
+        sed -i -e "s#(/events/events#(/ibc-go/events/#g" $file
     done
 }
 
@@ -95,7 +95,7 @@ fix_components() {
         # change to the new format for these components
         OLD_PATH="src/components/$COMPONENT_NAME"
         NEW_PATH="src/components/ibc-go/$COMPONENT_NAME"
-        find ./ibc-go -maxdepth 3 -type f -exec sed -i "s#$OLD_PATH#$NEW_PATH#g" {} \;
+        find ./ibc-go -maxdepth 3 -type f -exec sed -i -e "s#$OLD_PATH#$NEW_PATH#g" {} \;
     done
 }
 
