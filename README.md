@@ -1,15 +1,19 @@
 # Interchain Stack Documentation
 
-Built with [Docusaurus 2](https://docusaurus.io/).
 
-An aggregation of Interchain stack components documentation in 1 place. <https://dev-portal-docsite.netlify.app/>
+
+An aggregation of Interchain stack components documentation in 1 place. Built with [Docusaurus 2](https://docusaurus.io/) and deployed at <https://dev-portal-docsite.netlify.app/>.
+
+## Architecture
+
+Review the [Architecture and considerations](./ARCHITECTURE.md) documentation to become familiar with the problem, designs, and expectations for maintainers and upstream developers.
 
 ## Installation
 
 Simply `fork` this repository, then:
 
 ```bash
-# MacOS: Install Homebrew & Update bash to version >= 4
+# MacOS: Install Homebrew & update bash to version >= 4
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # brew install bash
 # bash --version
@@ -20,7 +24,7 @@ $ npm install
 # Gets latest upstream commits
 $ make latest-commits
 
-# Syncs the commits to docs into the site
+# Syncs docs site from the commits set in latest.json
 $ make sync-docs
 ```
 
@@ -45,25 +49,3 @@ This command runs package install, doc sync, and the build in 1 command. It is m
 ```bash
 $ npm run build
 ```
-
----
-
-## Context
-
-Every external documentation repo is not saved here for efficiency. Teams modify their upstream docs where they feel comfortable. This pipeline downloads, modifies, and builds the external docs to fit the aggregated use-case in a developer experience friendly way. Git commits are used for deterministic syncing even if an auto generated merge takes a period of time. This keep PRs small and clean while allowing for faster git clones as this repo expands. This commit based approach has checks with CI/CD to ensure the latest changes are still valid and no broken links are found. if they are, a reviewer can test it on their machine locally to verify what scripts need to be modified. Once approved and merged the CI/CD will deploy the changes to the live site.
-
-### dsource-
-
-`dsource-` directories are "documentation sources". This is the upstream source of truth. They are shallow cloned so only the commits required are saved, keeping instances lightweight for local and CI development.
-
-### Sync Latest Commits
-
-The latest-commits script gathers recent commits from all repos into the `latest.json` file. This file is used in all `sync_*.sh` scripts to ensure that docs sync deterministically from PRs to main deployments. When a PR is merged, only the versions successfully previewed in the PR are deployed. If CI/CD fails, the PR will still contain the latest JSON changes, allowing for easier debugging or patching through `git bisect` or script adjustments.
-
-### Helpers
-
-`helpers.sh` is a script of useful shared logic across the `sync_*` scripts
-
-### Sync Files
-
-`sync_*.sh` files are used to pull the latest source code from the remote repo and move it into the docs instance. These use the `latest.json` commits.
