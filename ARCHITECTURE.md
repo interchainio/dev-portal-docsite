@@ -22,13 +22,15 @@ Every external documentation repo is not saved here for efficiency. Teams modify
 
 **NOTE** kapa.ai bot support will not be available locally & requires registering your domain in the dashboard. If you get CORS errors, this is why.
 
+---
+
 # Considerations
 
 ## Docusaurus
 The only engine with support for multiple versions and multiple documentation topics in 1 site is docusaurus. Originally the plan was to go with Nextra, but it would require each documentation site to be its own subdomain (i.e. sdk.website.com). This results in each site being run independently, just under 1 domain. While this is technically the easier approach a requirement for the docs-site is no hard redirects. This means all content must be accessible via URL slugs (i.e. `.com/<slug>`) and all loaded on connection to the site initially. This narrowed it down to Docusaurus. Coincidentally both the Cosmos-SDK and IBC-Go already used docusaurus too.
 
 ## Web Hosting
-Web hosting supports [netlify](./.github/workflows/deploy-netlify.yaml) and [github pages](./.github/workflows/deploy-github-pages.yaml) since docusaurus generates static sites. This allows developers to use 1 or the other depending on their conformability with either. For production, the Interchain Foundation uses the netlify action.
+Web hosting supports [netlify](./.github/workflows/deploy-netlify.yaml) and [github pages](./.github/workflows/deploy-github-pages.yaml) since docusaurus generates static sites. This allows developers to use 1 or the other depending on their conformability with either. For production, the Interchain Foundation uses the netlify action. Any PR submitted to the repo will also get a [preview launched](https://github.com/interchainio/dev-portal-docsite/issues/34) so they can see it in the staging development environment before merge.
 
 ## Developer Experience
 Developer experience for both upstream and this repositories maintainers is a key consideration in the design. Stack components should be able to host their documentation anywhere
@@ -37,18 +39,22 @@ Developer experience for both upstream and this repositories maintainers is a ke
 - Within this repo itself (*not advised, but possible)*
 Giving flexibility to the developer to continue on with their normal workflows.
 
+## Lightweight Cloning
+Nothing is worse down trying to clone a massive git repo. This is only compounded by the number of documentation files across many different components all in 1 place. To reduce this documentations are not persisted to git state. [ref. issue 1](https://github.com/interchainio/dev-portal-docsite/issues/1). Instead just the latest commits are saved for a lightweight reference to upstream docs. This reduces repo clutter, keeps it clean, and allows developers to just focus on the single topic area if they so choose.
+
 ## Rapid Iteration
 Dynamic loading is used with the docusaurus config to enable faster build/run iteration. This is done by checking for specific files (like a sidebar.js in a folder name). If this is found then that folder name (which matches a topic such as `cosmos-sdk`) is loaded in. If you only need to test 1 topic, you only have to sync that topics docs via the `scripts/*.sh` file. Each are independent and load without dependencies on other documentation topics. If you want to load all documentation, use the `make` file.
 
 ## Versioning
-
 tldr; each component (topic) can use its normal versions. If using child components which don't match the parents semantic versioning, just create a new component topic for the module.
 
 Each stack component topic needs its own semantic versions (i.e. `cosmos-sdk`: v0.47 & v0.50, `ibc-go` v7.x & v8.x). Developers upstream can reference these direct path links which will then smart redirect for the user without redirecting locally. If a component changes to child packages with different versioning (as the cosmos-sdk is working to do with v0.52 and v1 modules), each child package would become its own topic. This way you can have `cosmos-sdk` v0.52 and `x/staking` v1 and v2. Both v1 and v2 may be compatible with the same version of other components, allowing you to support other packages as well.
 
 A rough example demo for how child versioned modules would work is [provided here](https://youtu.be/iG1avX7F6eo?si=HJP1NRkKAXYUTnDp&t=28). This is done via a [re-direct](./src/theme/NotFound.js) in the NotFound since redirect plugins only work for complete builds (this NotFound patch allows it to work for local dev starts too). So that `cosmos-sdk/x-staking/v1` -> `/x-staking/v1`
 
-## Implementations
+---
+
+# Implementations
 
 ## Sync Latest Commits
 

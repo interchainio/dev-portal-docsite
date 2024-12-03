@@ -2,7 +2,7 @@
 
 
 
-An aggregation of Interchain stack components documentation in 1 place like the [Cosmos-SDK](https://github.com/cosmos/cosmos-sdk), [IBC-Go](https://github.com/cosmos/ibc-go), and [CometBFT](https://github.com/cometbft/cometbft). Built with [Docusaurus 2](https://docusaurus.io/) and deployed at <https://dev-portal-docsite.netlify.app/>.
+An aggregation of Interchain stack components documentation in 1 place. Built with [Docusaurus 2](https://docusaurus.io/) and deployed at <https://dev-portal-docsite.netlify.app/>.
 
 ## Architecture
 
