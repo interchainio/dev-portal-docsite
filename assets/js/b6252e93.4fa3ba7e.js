@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdev_portal_docsite=self.webpackChunkdev_portal_docsite||[]).push([[13863],{79338:s=>{s.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"cosmos-sdk"}')}}]);
