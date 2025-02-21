@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdev_portal_docsite=self.webpackChunkdev_portal_docsite||[]).push([[55395],{92238:e=>{e.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"ibc-go"}')}}]);
