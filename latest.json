@@ -1,7 +1,7 @@
 {
-  "cometbft": "de9f3008b0ff650b4361f8998f35bea81a51ba68",
-  "ibcgo": "eeb8b8ad7ddb55c0a5c1180c663dad083417633a",
-  "onboarding": "1bf01a53f7a4b2b476e9ccc8606708d6fe8836c3",
-  "cosmossdk": "f94df2b1054139dde9c981c03640f68867149b60",
-  "cosmossdkmain": "0a98b65b24900a0e608866c78f172cf8e4140aea"
+  "cometbft": "809582f4f269090e51c30bd4e586a91eafea8522",
+  "ibcgo": "e64769f42e8a80167ff6fd7255ad4a718307f13e",
+  "onboarding": "dd55ed611f71b25145eebfa64b3e9f26fb5215e1",
+  "cosmossdk": "ee7ad5945788cc057b80b125b86f7ba54d194192",
+  "cosmossdkmain": "53d98127d054905da265d60c7f10103f26a28c9c"
 }
